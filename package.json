@@ -1,0 +1,25 @@
+{
+  "name": "ai-co-built-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "WorkBuddy 与 Vibe Coding 工具协同开发的 Web 应用",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev --workspace=apps/web",
+    "dev:api": "npm run dev --workspace=apps/api",
+    "build": "npm run build --workspace=apps/web",
+    "start:api": "npm run start --workspace=apps/api",
+    "db:generate": "npm run postinstall --workspace=apps/api",
+    "db:push": "npm run db:push --workspace=apps/api",
+    "seed": "npm run seed --workspace=apps/api",
+    "seed:official": "npm run seed:official --workspace=apps/api",
+    "seed:knowledge": "npm run seed:knowledge --workspace=apps/api",
+    "seed:interview": "npm run seed:interview --workspace=apps/api",
+    "seed:all": "npm run seed --workspace=apps/api && npm run seed:official --workspace=apps/api && npm run seed:knowledge --workspace=apps/api && npm run seed:interview --workspace=apps/api"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

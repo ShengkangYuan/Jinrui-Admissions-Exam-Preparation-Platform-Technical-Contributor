@@ -1,0 +1,78 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: '40px 64px',
+  flexDirection: 'column',
+}}>
+  <Text style={{
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#F8FAFC',
+    marginBottom: 12,
+    fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+  }}>
+    系统概览
+  </Text>
+  <Text style={{
+    fontSize: 20,
+    color: '#7A89A3',
+    marginBottom: 44,
+  }}>
+    面向 TMUA / ESAT / 雅思 / 剑桥面试等升学场景的智能化训练平台
+  </Text>
+  <Box style={{
+    flexDirection: 'row',
+    gap: 24,
+    flex: 1,
+    alignItems: 'stretch',
+  }}>
+    {[
+      { value: '5', label: '大学生端模块', desc: '个人空间 / 刷题 / 语言 / 冒险 / 面试' },
+      { value: '300+', label: '学科题库', desc: 'TMUA / ESAT / NSAA 等原版与组卷' },
+      { value: '28', label: '冒险被动技能', desc: 'Roguelike 即时战斗与成长体系' },
+      { value: '多维', label: '学情分析', desc: '科目 / 难度 / 模式 / 知识点 / 语言' },
+    ].map((m, idx) => (
+      <Box key={idx} style={{
+        flex: 1,
+        background: '#131C33',
+        borderRadius: 20,
+        padding: 32,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 16,
+        border: '1px solid rgba(37,99,235,0.25)',
+      }}>
+        <Text style={{
+          fontSize: 72,
+          fontWeight: 'bold',
+          backgroundImage: 'linear-gradient(135deg, #D4AF37 0%, #F3D27A 100%)',
+          backgroundClip: 'text',
+          color: 'transparent',
+          fontFamily: '"Inter",sans-serif',
+        }}>{m.value}</Text>
+        <Text style={{
+          fontSize: 22,
+          fontWeight: 'bold',
+          color: '#F8FAFC',
+          textAlign: 'center',
+        }}>{m.label}</Text>
+        <Text style={{
+          fontSize: 16,
+          color: '#7A89A3',
+          textAlign: 'center',
+          lineHeight: 1.5,
+        }}>{m.desc}</Text>
+      </Box>
+    ))}
+  </Box>
+  <Box style={{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 28,
+  }}>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>03 / 18</Text>
+  </Box>
+</Slide>

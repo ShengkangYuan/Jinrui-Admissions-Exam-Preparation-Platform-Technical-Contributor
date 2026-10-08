@@ -1,0 +1,137 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: '40px 64px',
+  flexDirection: 'column',
+}}>
+  <Text style={{
+    fontSize: 34,
+    fontWeight: 'bold',
+    color: '#F8FAFC',
+    marginBottom: 24,
+    fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+  }}>
+    教师端 · 学生管理与作业分发
+  </Text>
+  <Box style={{
+    flexDirection: 'row',
+    gap: 32,
+    flex: 1,
+    alignItems: 'stretch',
+  }}>
+    <Box style={{
+      width: 440,
+      background: '#131C33',
+      borderRadius: 20,
+      padding: 32,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: 14,
+      border: '1px solid rgba(37,99,235,0.2)',
+    }}>
+      <Box style={{
+        width: 280,
+        height: 72,
+        background: 'linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%)',
+        borderRadius: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 12,
+        flexDirection: 'row',
+      }}>
+        <FAIcon name='users' style={{ fill: '#F8FAFC', width: 26, height: 26 }} />
+        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#F8FAFC' }}>学生名单</Text>
+      </Box>
+      <Text style={{ fontSize: 24, color: '#D4AF37', fontWeight: 'bold' }}>↓</Text>
+      <Box style={{
+        width: 280,
+        height: 72,
+        background: 'rgba(37,99,235,0.18)',
+        borderRadius: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+        border: '1px solid rgba(37,99,235,0.4)',
+      }}>
+        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#F8FAFC' }}>作业 / 考试分发</Text>
+      </Box>
+      <Text style={{ fontSize: 24, color: '#D4AF37', fontWeight: 'bold' }}>↓</Text>
+      <Box style={{ flexDirection: 'row', gap: 16 }}>
+        <Box style={{
+          width: 132,
+          height: 90,
+          background: 'rgba(212,175,55,0.15)',
+          borderRadius: 12,
+          justifyContent: 'center',
+          alignItems: 'center',
+          border: '1px solid rgba(212,175,55,0.4)',
+        }}>
+          <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#F8FAFC', textAlign: 'center' }}>完成率<br />统计</Text>
+        </Box>
+        <Box style={{
+          width: 132,
+          height: 90,
+          background: 'rgba(212,175,55,0.15)',
+          borderRadius: 12,
+          justifyContent: 'center',
+          alignItems: 'center',
+          border: '1px solid rgba(212,175,55,0.4)',
+        }}>
+          <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#F8FAFC', textAlign: 'center' }}>DDL 自动<br />过期</Text>
+        </Box>
+      </Box>
+      <Text style={{ fontSize: 24, color: '#D4AF37', fontWeight: 'bold' }}>↓</Text>
+      <Box style={{
+        width: 280,
+        height: 72,
+        background: 'linear-gradient(135deg, #D4AF37 0%, #F3D27A 100%)',
+        borderRadius: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#0A0F1E' }}>学生个人空间同源数据</Text>
+      </Box>
+    </Box>
+    <Box style={{
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      gap: 18,
+    }}>
+      <Text style={{ fontSize: 19, color: '#C7D0E0', lineHeight: 1.6 }}>
+        教师可为指定学生分发试卷或语言练习，设定截止时间；学生端个人空间实时同步，教师端可查看完成率与学情表现。
+      </Text>
+      {[
+        { title: '精准分发', desc: '按学生 / 班级选择分发对象' },
+        { title: 'DDL 管理', desc: '截止时间自动触发 EXPIRED 状态' },
+        { title: '完成统计', desc: '待完成 / 进行中 / 已提交一目了然' },
+        { title: '级联删除', desc: '删除学生同步清理作业、成绩、错题' },
+      ].map((c, i) => (
+        <Box key={i} style={{
+          background: '#131C33',
+          borderRadius: 14,
+          padding: 18,
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 12,
+          borderLeft: '3px solid #D4AF37',
+        }}>
+          <FAIcon name='check-circle' style={{ fill: '#D4AF37', width: 22, height: 22 }} />
+          <Box>
+            <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#F8FAFC' }}>{c.title}</Text>
+            <Text style={{ fontSize: 14, color: '#7A89A3' }}>{c.desc}</Text>
+          </Box>
+        </Box>
+      ))}
+    </Box>
+  </Box>
+  <Box style={{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 24,
+  }}>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>16 / 18</Text>
+  </Box>
+</Slide>

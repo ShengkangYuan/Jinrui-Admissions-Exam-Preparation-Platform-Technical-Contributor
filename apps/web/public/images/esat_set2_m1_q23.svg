@@ -1,0 +1,39 @@
+<svg viewBox="0 0 340 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Circle -->
+  <circle cx="170" cy="200" r="125" fill="#eef4fb" stroke="#1f4e79" stroke-width="2"/>
+  
+  <!-- Diameter AB -->
+  <line x1="45" y1="200" x2="295" y2="200" stroke="#1f4e79" stroke-width="2"/>
+  
+  <!-- Chord AC -->
+  <line x1="45" y1="200" x2="205.0" y2="80.0" stroke="#1f4e79" stroke-width="2"/>
+  
+  <!-- Chord BC -->
+  <line x1="295" y1="200" x2="205.0" y2="80.0" stroke="#1f4e79" stroke-width="2"/>
+  
+  <!-- Line OD (the answer) -->
+  <line x1="170" y1="200" x2="250.0" y2="140.0" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,3"/>
+  
+  <!-- Right angle mark at C -->
+  <path d="M 197.0 90.0 L 207.0 90.0 L 207.0 80.0" fill="none" stroke="#7f8c9a" stroke-width="1.2"/>
+  
+  <!-- Points -->
+  <circle cx="170" cy="200" r="3.5" fill="#1f4e79"/>
+  <circle cx="45" cy="200" r="3.5" fill="#1f4e79"/>
+  <circle cx="295" cy="200" r="3.5" fill="#1f4e79"/>
+  <circle cx="205.0" cy="80.0" r="3.5" fill="#1f4e79"/>
+  <circle cx="250.0" cy="140.0" r="3.5" fill="#c0392b"/>
+  
+  <!-- Labels -->
+  <text x="165" y="220" font-size="15" font-weight="bold" fill="#1f4e79" text-anchor="middle">O</text>
+  <text x="30" y="205" font-size="15" font-weight="bold" fill="#1f4e79" text-anchor="middle">A</text>
+  <text x="310" y="205" font-size="15" font-weight="bold" fill="#1f4e79" text-anchor="middle">B</text>
+  <text x="210.0" y="70.0" font-size="15" font-weight="bold" fill="#1f4e79" text-anchor="middle">C</text>
+  <text x="262.0" y="135.0" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="start">D</text>
+  
+  <!-- Dimension: AC = 8 cm -->
+  <text x="105.0" y="140.0" font-size="13" fill="#555" text-anchor="middle">8 cm</text>
+  
+  <!-- Dimension: OD = ? -->
+  <text x="215.0" y="185.0" font-size="13" fill="#c0392b" text-anchor="start">?</text>
+</svg>

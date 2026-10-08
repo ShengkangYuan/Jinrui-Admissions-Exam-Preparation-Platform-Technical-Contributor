@@ -1,0 +1,77 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: '40px 64px',
+  flexDirection: 'column',
+}}>
+  <Text style={{
+    fontSize: 34,
+    fontWeight: 'bold',
+    color: '#F8FAFC',
+    marginBottom: 24,
+    fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+  }}>
+    面试练习 · 剑桥数学面试真题演练
+  </Text>
+  <Box style={{
+    flexDirection: 'row',
+    gap: 28,
+    flex: 1,
+    alignItems: 'stretch',
+  }}>
+    <Box style={{
+      flex: 1,
+      background: '#131C33',
+      borderRadius: 20,
+      padding: 10,
+      border: '1px solid rgba(37,99,235,0.2)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
+      <Image
+        src="assets/08_interview.png"
+        style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 12 }}
+      />
+    </Box>
+    <Box style={{
+      width: 360,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      gap: 20,
+    }}>
+      <Text style={{ fontSize: 19, color: '#C7D0E0', lineHeight: 1.6 }}>
+        针对 Cambridge Mathematics / Maths & CS / Natural Sciences 等面试场景，提供 STEP 风格的证明题与逐题引导。
+      </Text>
+      {[
+        { title: '真题套卷', desc: 'Number Theory / Combinatorics 等主题' },
+        { title: '面试评分维度', desc: 'What the interviewer looks for' },
+        { title: '折叠详解', desc: 'Detailed solution 引导式解析' },
+      ].map((c, i) => (
+        <Box key={i} style={{
+          background: '#131C33',
+          borderRadius: 14,
+          padding: 18,
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 12,
+          borderLeft: '3px solid #2563EB',
+        }}>
+          <FAIcon name='check-circle' style={{ fill: '#2563EB', width: 22, height: 22 }} />
+          <Box>
+            <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#F8FAFC' }}>{c.title}</Text>
+            <Text style={{ fontSize: 14, color: '#7A89A3' }}>{c.desc}</Text>
+          </Box>
+        </Box>
+      ))}
+    </Box>
+  </Box>
+  <Box style={{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 24,
+  }}>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>12 / 18</Text>
+  </Box>
+</Slide>

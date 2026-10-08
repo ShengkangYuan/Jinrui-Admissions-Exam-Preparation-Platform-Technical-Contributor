@@ -1,0 +1,12 @@
+Roguelike 美术素材来源（全部 CC0，免署名可商用，来自 https://kenney.nl）：
+
+- pixel-platformer  (boss.png/boss2.png/boss3.png/enemy.png/enemy2.png/enemy3.png)
+- platformer-kit     (enemy_a~e.png = character-oobi/oodi/ooli/oopi/oozi；deco_forest_tree/flower、deco_mountain_pine、deco_volcano_spike/trap)
+- mini-dungeon       (weapon_sword.png/weapon_spear.png)
+- mini-forest        (weapon_bow.png、deco_mountain_rock.png)
+- cube-pets          (deco_ocean_fish.png/deco_ocean_crab.png)
+
+Kenny.nl 版权声明（CC0 1.0 Universal）：
+"All assets on this page are provided 'as is', without warranty of any kind.
+ You can use these assets in personal and commercial projects.
+ You are not required to give credit, but it is appreciated."

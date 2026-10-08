@@ -1,0 +1,10 @@
+【解析】
+量词否定的机械规则：逐层翻转所有量词（$\forall \leftrightarrow \exists$），同时将最内层谓词取反。对于含条件句 $P \Rightarrow Q$ 的命题，注意 $\neg(P \Rightarrow Q) = P \wedge \neg Q$。
+
+**I**：$S_1$ 的结构为 $\forall n\, \exists p\, \forall k<n: p \nmid (k!+1)$。否定应为 $\exists n\, \forall p\, \exists k<n: p \mid (k!+1)$。与 I 给出的形式完全一致，故 **I 正确**。
+
+**II**：$S_2$ 的结构为 $\exists m\, \forall j: (j \mid m \Rightarrow j+1 \mid m+1)$。否定应为 $\forall m\, \exists j: (j \mid m \wedge j+1 \nmid m+1)$（注意蕴含变合取）。但 II 保留了 "if...then" 结构（写成 "$j \mid m \Rightarrow j+1 \nmid m+1$"），这是经典陷阱——它不等价于真正的否定。故 **II 不正确**。
+
+**III**：$S_3$ 的结构为 $\forall (a,b)\, \exists c: a+c \mid b+c$。否定应为 $\exists (a,b)\, \forall c: a+c \nmid b+c$。与 III 给出的形式完全一致，故 **III 正确**。
+
+答案为 **I and III only**。

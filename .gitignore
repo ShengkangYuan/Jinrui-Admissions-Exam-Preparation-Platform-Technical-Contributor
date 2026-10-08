@@ -1,0 +1,143 @@
+node_modules/
+.next/
+out/
+dist/
+build/
+.env
+.env.local
+.env.*.local
+.DS_Store
+*.log
+npm-debug.log*
+*.db
+*.db-journal
+*.db.bak*
+.workbuddy/
+.cache/
+tsconfig.tsbuildinfo
+# 动态上传的图片(由 /api/uploads 写入 web/public/uploads,不入库)
+apps/web/public/uploads/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+apps/api/scripts/extract_figures.py
+/backup2.mjs
+/backup_pre.mjs
+/bulu.mjs
+/chks.exp
+/dedup_smc.mjs
+/delassign.exp
+/deltest.exp
+/deltest2.exp
+/deltest3.exp
+/deploy_card.exp
+/deploy_delfix.exp
+/deploy_direct.exp
+/deploy_move.exp
+/deploy_pager.exp
+/deploy_pause.exp
+/deploy_resume.exp
+/deploy_review.exp
+/diag.exp
+/do_bulu.exp
+/do_import.exp
+/do_transfer.exp
+/gen_json.py
+/logcheck.exp
+/logchkexp
+/logctx.exp
+/logdel.exp
+/logfull.exp
+/query_smc.mjs
+/query_smc2.mjs
+/query_tmua.mjs
+/query_tmua2.mjs
+/read_xlsx.mjs
+/read_xlsx.py
+/run_backup.exp
+/run_dedup.exp
+/run_query.exp
+/run_query2.exp
+/run_tmua2.exp
+/run_tmua_check.exp
+/scripts/import_tmua.mjs
+/scripts/verify_import.cjs
+/smoketest.exp
+/sshprobe.exp
+/tmua_missing.json
+/verify.exp
+/verify2.exp
+
+# ===== 以下为一次性运维/调试产物(本地保留,不进入 GitHub)=====
+
+# 各类源码备份文件(.bak / .bak-logo / .bak-日期 等,任意目录)
+*.bak
+*.bak-*
+*.bak.*
+*.bak_*
+
+# SQLite 分片/预修复快照
+*.db.chunk.*
+*.db.pre-*
+
+# apps/api 根目录下的历史运维脚本与数据导出(bank_*.json、check_*/fix_*/diag_*/dump_* 等)
+# 应用运行只依赖 src/、scripts/、prisma/;package.json 除外仍需提交
+apps/api/*.mjs
+apps/api/*.cjs
+apps/api/*.js
+apps/api/*.py
+apps/api/*.exp
+apps/api/*.txt
+apps/api/*.json
+!apps/api/package.json
+
+# apps/api/scripts 只保留 package.json 注册的脚本、运行时依赖 adapters/、种子数据 data/
+# 其余均为历史一次性录题/修数/诊断脚本(本地保留,不入库)
+apps/api/scripts/*
+!apps/api/scripts/adapters/
+!apps/api/scripts/data/
+!apps/api/scripts/seed.js
+!apps/api/scripts/import_official.js
+!apps/api/scripts/seed_interview.js
+!apps/api/scripts/seed_tmua2016.js
+!apps/api/scripts/seed_knowledge.js
+!apps/api/scripts/classify_existing.js
+!apps/api/scripts/clean_option_prefix.js
+!apps/api/scripts/fix_first_letter.js
+!apps/api/scripts/fix_import_data.js
+!apps/api/scripts/fix_math_data.js
+!apps/api/scripts/normalize_math_data.js
+!apps/api/scripts/latexify_options.js
+!apps/api/scripts/smoke.js
+!apps/api/scripts/verify_math.js
+!apps/api/scripts/verify_questions.js
+!apps/api/scripts/balance_sim.mjs
+
+# 仓库根 /scripts:历史一次性运维脚本(部署/备份/截图/MAT·NSAA 导入等,含服务器地址),不入库
+# 可复用的种子与校验脚本统一维护在 apps/api/scripts/
+/scripts/
+
+# 服务器全量备份打包(可能含 .env、数据库等一切内容),严禁入库
+/source.tar.gz
+
+# 历史代码快照备份目录
+/backups/
+
+# 官方真题 PDF 等第三方版权材料(仅本地录题用,应用运行不依赖;公开仓库不分发)
+/assets/
+
+# PPT 编辑器的本地状态(含本机绝对路径)
+/jr-eagle-ppt/.slidep/
+
+# 服务器全量备份清单与根目录临时验证脚本
+/MANIFEST.txt
+/_verify_rich.mjs
+
+# workspaces 只使用根 package-lock.json;apps/web 下的历史锁文件不提交
+apps/web/package-lock.json
+
+# Prisma 生成产物缓存
+apps/api/src/generated/
+

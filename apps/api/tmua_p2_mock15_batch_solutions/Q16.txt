@@ -1,0 +1,10 @@
+【解析】
+令 $t = \sin^2 x \in [0,1]$，则 $\cos^2 x = 1-t$。
+
+$E_1 = t(1-t)$ 是开口向下的抛物线，在 $t=\frac{1}{2}$ 处取最大值 $\frac{1}{4}$。故 **I 真**。
+
+$E_2 = [t(1-t)]^5$，在同一位置 $t=\frac{1}{2}$ 取最大值 $(\frac{1}{4})^5 = \frac{1}{1024}$。故 **II 真**。
+
+**III**："$E_1$ attains its maximum if and only if $\sin x = \cos x$"。$E_1$ 取最大值当且仅当 $\sin^2 x = \frac{1}{2}$，即 $|\sin x| = |\cos x|$。这包括 $\sin x = \cos x$（如 $x=45°$）和 $\sin x = -\cos x$（如 $x=135°$），所以"iff $\sin x = \cos x$"不成立。故 **III 假**。
+
+答案为 **I and II only**。

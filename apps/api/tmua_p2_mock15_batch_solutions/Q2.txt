@@ -1,0 +1,9 @@
+【解析】
+$P$: $\sin\theta > \frac{1}{2}$ ⇔ $\theta \in (\frac{\pi}{6}, \frac{5\pi}{6})$（模 $2\pi$）。
+$Q$: $\cos\theta < \frac{\sqrt{3}}{2}$ ⇔ $\theta \in (\frac{\pi}{6}, \frac{11\pi}{6})$（模 $2\pi$）。
+
+因为 $(\frac{\pi}{6}, \frac{5\pi}{6}) \subsetneq (\frac{\pi}{6}, \frac{11\pi}{6})$，所以：
+- $P \Rightarrow Q$ 成立（$P$ 是 $Q$ 的充分条件）；
+- $Q \Rightarrow P$ 不成立（例如 $\theta = \pi$ 满足 $Q$ 但不满足 $P$，因为 $\sin\pi = 0 \leq \frac{1}{2}$），故 $P$ 不是 $Q$ 的必要条件。
+
+因此 $P$ 是 $Q$ 的充分非必要条件。答案为 **OPT1**。

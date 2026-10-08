@@ -1,0 +1,14 @@
+<svg height="300" style="max-width:100%;height:auto;" viewbox="0 0 340 300" width="340" xmlns="http://www.w3.org/2000/svg">
+<polygon fill="#f0f5fa" points="60,240 60,114 228,240" stroke="#1f4e79" stroke-width="2.2"></polygon>
+<rect fill="none" height="8" stroke="#1f4e79" stroke-width="1.4" width="8" x="60" y="232"></rect>
+<text fill="#1f4e79" font-size="14" x="35" y="177">9</text>
+<text fill="#1f4e79" font-size="14" x="144" y="260">12</text>
+<text fill="#1f4e79" font-size="13" x="154" y="172">15</text>
+<circle cx="102" cy="198" fill="none" r="42" stroke="#c0392b" stroke-dasharray="5,3" stroke-width="2"></circle>
+<line stroke="#c0392b" stroke-width="1.4" x1="102" x2="102" y1="198" y2="156"></line>
+<text fill="#c0392b" font-size="13" x="82" y="151">r = 3</text>
+<text fill="#7f8c9a" font-size="13" x="250" y="120">cross-section:</text>
+<text fill="#7f8c9a" font-size="13" x="250" y="140">9-12-15 right</text>
+<text fill="#7f8c9a" font-size="13" x="250" y="160">triangle</text>
+<text fill="#7f8c9a" font-size="13" x="250" y="200">prism length = 20 cm</text>
+</svg>

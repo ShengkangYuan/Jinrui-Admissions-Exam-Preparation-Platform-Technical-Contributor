@@ -1,0 +1,42 @@
+{
+  "name": "api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "postinstall": "prisma generate",
+    "db:push": "prisma db push",
+    "seed": "node scripts/seed.js",
+    "seed:official": "node scripts/import_official.js",
+    "seed:interview": "node scripts/seed_interview.js",
+    "seed:tmua2016": "node scripts/seed_tmua2016.js",
+    "seed:knowledge": "node scripts/seed_knowledge.js",
+    "classify:existing": "node scripts/classify_existing.js",
+    "clean:option-prefix": "node scripts/clean_option_prefix.js",
+    "fix:first-letter": "node scripts/fix_first_letter.js",
+    "fix:import-data": "node scripts/fix_import_data.js",
+    "latexify": "node scripts/latexify_options.js",
+    "smoke": "node scripts/smoke.js",
+    "verify:math": "node scripts/verify_math.js",
+    "verify:questions": "node scripts/verify_questions.js",
+    "verify:balance": "node scripts/balance_sim.mjs",
+    "fix:math": "node scripts/fix_math_data.js",
+    "normalize:math": "node scripts/normalize_math_data.js",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.19.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mammoth": "^1.12.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "prisma": "^5.19.1"
+  }
+}

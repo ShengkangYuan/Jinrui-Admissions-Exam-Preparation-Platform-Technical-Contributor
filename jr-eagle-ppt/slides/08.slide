@@ -1,0 +1,64 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: '40px 64px',
+  flexDirection: 'column',
+}}>
+  <Text style={{
+    fontSize: 34,
+    fontWeight: 'bold',
+    color: '#F8FAFC',
+    marginBottom: 24,
+    fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+  }}>
+    成绩历史 + 错题本 · 往期表现与错题闭环
+  </Text>
+  <Box style={{
+    flexDirection: 'row',
+    gap: 24,
+    flex: 1,
+    alignItems: 'stretch',
+  }}>
+    <Box style={{
+      flex: 1,
+      background: '#131C33',
+      borderRadius: 20,
+      padding: 10,
+      border: '1px solid rgba(37,99,235,0.2)',
+      flexDirection: 'column',
+    }}>
+      <Image
+        src="assets/03_space_grades.png"
+        style={{ width: '100%', flex: 1, objectFit: 'contain', borderRadius: 12 }}
+      />
+      <Text style={{ fontSize: 15, color: '#7A89A3', textAlign: 'center', marginTop: 8 }}>
+        全部成绩记录 · 练习 / 模考 / 语言 Band 报告
+      </Text>
+    </Box>
+    <Box style={{
+      flex: 1,
+      background: '#131C33',
+      borderRadius: 20,
+      padding: 10,
+      border: '1px solid rgba(37,99,235,0.2)',
+      flexDirection: 'column',
+    }}>
+      <Image
+        src="assets/04_space_wrong.png"
+        style={{ width: '100%', flex: 1, objectFit: 'contain', borderRadius: 12 }}
+      />
+      <Text style={{ fontSize: 15, color: '#7A89A3', textAlign: 'center', marginTop: 8 }}>
+        错题本 · 学科筛选 / 折叠解析 / 标记掌握
+      </Text>
+    </Box>
+  </Box>
+  <Box style={{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  }}>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>08 / 18</Text>
+  </Box>
+</Slide>

@@ -1,0 +1,20 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="200.00" cy="150.00" r="120.00" fill="none" stroke="#1f3b73" stroke-width="2"/>
+  <line x1="38.00" y1="30.00" x2="362.00" y2="30.00" stroke="#555" stroke-width="2"/>
+  <line x1="200.00" y1="30.00" x2="200.00" y2="150.00" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="200.00" y1="30.00" x2="315.91" y2="118.94" stroke="#1f3b73" stroke-width="1.5"/>
+  <line x1="200.00" y1="30.00" x2="260.00" y2="253.92" stroke="#1f3b73" stroke-width="1.5"/>
+  <path d="M 230.15 53.13 A 38.00 38.00 0 0 1 200.00 68.00" fill="none" stroke="#e67e22" stroke-width="1.5"/>
+  <path d="M 238.00 30.00 A 38.00 38.00 0 0 1 209.84 66.71" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="200.00" cy="150.00" r="2.5" fill="#1f3b73"/>
+  <circle cx="200.00" cy="30.00" r="2.5" fill="#c0392b"/>
+  <circle cx="315.91" cy="118.94" r="2.5" fill="#1f3b73"/>
+  <circle cx="260.00" cy="253.92" r="2.5" fill="#1f3b73"/>
+  <text x="206.00" y="154.00" font-size="13" fill="#1f3b73">O</text>
+  <text x="206.00" y="26.00" font-size="13" fill="#c0392b">S</text>
+  <text x="319.91" y="114.94" font-size="13" fill="#1f3b73">Q</text>
+  <text x="264.00" y="257.92" font-size="13" fill="#1f3b73">P</text>
+  <text x="364.00" y="24.00" font-size="13" fill="#555">T</text>
+  <text x="26.00" y="24.00" font-size="13" fill="#555">R</text>
+  <text x="230.00" y="60.00" font-size="12" fill="#e67e22">52.5 deg</text>
+</svg>

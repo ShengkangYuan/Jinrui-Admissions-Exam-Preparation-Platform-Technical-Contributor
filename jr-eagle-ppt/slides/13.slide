@@ -1,0 +1,72 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: '40px 64px',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  position: 'relative',
+  overflow: 'hidden',
+}}>
+  <Box style={{
+    position: 'absolute',
+    left: -120,
+    bottom: -80,
+    width: 520,
+    height: 520,
+    background: 'radial-gradient(circle at 50% 50%, rgba(212,175,55,0.14), transparent 60%)',
+    borderRadius: '50%',
+  }} />
+  <Box style={{ position: 'relative', zIndex: 2, flexDirection: 'column' }}>
+    <Text style={{
+      fontSize: 28,
+      fontWeight: 600,
+      color: '#D4AF37',
+      marginBottom: 16,
+      letterSpacing: 2,
+    }}>
+      02
+    </Text>
+    <Text style={{
+      fontSize: 64,
+      fontWeight: 'bold',
+      color: '#F8FAFC',
+      marginBottom: 24,
+      fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+    }}>
+      教师端
+    </Text>
+    <Box style={{
+      width: 80,
+      height: 4,
+      background: 'linear-gradient(90deg, #D4AF37, #F3D27A)',
+      borderRadius: 2,
+      marginBottom: 32,
+    }} />
+    <Text style={{
+      fontSize: 24,
+      color: '#C7D0E0',
+      lineHeight: 1.6,
+    }}>
+      把老师从重复劳动中解放出来
+    </Text>
+  </Box>
+  <Box style={{
+    position: 'absolute',
+    bottom: 28,
+    left: 64,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  }}>
+    <Box style={{ width: 8, height: 8, background: '#D4AF37', borderRadius: '50%' }} />
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+  </Box>
+  <Text style={{
+    position: 'absolute',
+    bottom: 28,
+    right: 64,
+    fontSize: 14,
+    color: '#7A89A3',
+  }}>13 / 18</Text>
+</Slide>

@@ -1,0 +1,69 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: '40px 64px',
+  flexDirection: 'column',
+}}>
+  <Text style={{
+    fontSize: 34,
+    fontWeight: 'bold',
+    color: '#F8FAFC',
+    marginBottom: 20,
+    fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+  }}>
+    薄弱知识点 / 学情诊断 · 多维画像自动定位短板
+  </Text>
+  <Box style={{
+    flexDirection: 'row',
+    gap: 28,
+    flex: 1,
+    alignItems: 'stretch',
+  }}>
+    <Box style={{
+      flex: 1,
+      background: '#131C33',
+      borderRadius: 20,
+      padding: 10,
+      border: '1px solid rgba(37,99,235,0.2)',
+    }}>
+      <Image
+        src="assets/02_space_analysis.png"
+        style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 12 }}
+      />
+    </Box>
+    <Box style={{
+      width: 340,
+      flexDirection: 'column',
+      gap: 16,
+      justifyContent: 'center',
+    }}>
+      {[
+        { title: '科目维度', desc: '数学 / 物理 / 化学 / 生物分科正确率' },
+        { title: '难度维度', desc: '1–5 星难度下的表现分布' },
+        { title: '模式维度', desc: '练习 vs 模考两种场景对比' },
+        { title: '知识点维度', desc: '雷达图 + 按正确率排序的薄弱点' },
+      ].map((d, i) => (
+        <Box key={i} style={{
+          background: '#131C33',
+          borderRadius: 14,
+          padding: 18,
+          flexDirection: 'column',
+          gap: 6,
+          borderLeft: '3px solid #2563EB',
+        }}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#F8FAFC' }}>{d.title}</Text>
+          <Text style={{ fontSize: 15, color: '#7A89A3' }}>{d.desc}</Text>
+        </Box>
+      ))}
+    </Box>
+  </Box>
+  <Box style={{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 24,
+  }}>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>07 / 18</Text>
+  </Box>
+</Slide>

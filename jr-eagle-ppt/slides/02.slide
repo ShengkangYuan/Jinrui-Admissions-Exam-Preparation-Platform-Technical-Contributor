@@ -1,0 +1,70 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: '40px 64px',
+  flexDirection: 'column',
+}}>
+  <Text style={{
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#F8FAFC',
+    marginBottom: 36,
+    fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+  }}>
+    目录
+  </Text>
+  <Box style={{
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 24,
+    flex: 1,
+    alignContent: 'center',
+  }}>
+    {[
+      { num: '01', title: '系统概览', desc: '定位、规模与核心数据' },
+      { num: '02', title: '学生端 · 个人空间', desc: '作业、成绩、错题、薄弱点一屏聚合' },
+      { num: '03', title: '学生端 · 学习矩阵', desc: '刷题、语言、冒险、面试四大场景' },
+      { num: '04', title: '教师端', desc: '智能导入、组卷、学生管理与分发' },
+      { num: '05', title: '技术底座', desc: 'AI 识别、即时判分、学情引擎' },
+      { num: '06', title: '结语', desc: '让成长有迹可循' },
+    ].map((item, idx) => (
+      <Box key={idx} style={{
+        width: 360,
+        height: 160,
+        background: '#131C33',
+        borderRadius: 16,
+        padding: 28,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        borderLeft: '4px solid #2563EB',
+      }}>
+        <Text style={{
+          fontSize: 48,
+          fontWeight: 'bold',
+          color: '#D4AF37',
+          fontFamily: '"Inter",sans-serif',
+        }}>{item.num}</Text>
+        <Box>
+          <Text style={{
+            fontSize: 24,
+            fontWeight: 'bold',
+            color: '#F8FAFC',
+            marginBottom: 8,
+            fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+          }}>{item.title}</Text>
+          <Text style={{ fontSize: 16, color: '#7A89A3' }}>{item.desc}</Text>
+        </Box>
+      </Box>
+    ))}
+  </Box>
+  <Box style={{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 24,
+  }}>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>02 / 18</Text>
+  </Box>
+</Slide>

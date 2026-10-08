@@ -1,0 +1,16 @@
+<svg height="300" style="max-width:100%;height:auto;" viewbox="0 0 340 300" width="340" xmlns="http://www.w3.org/2000/svg">
+<circle cx="170" cy="100" fill="#f0f5fa" r="120" stroke="#1f4e79" stroke-width="2"></circle>
+<line stroke="#1f4e79" stroke-width="2.2" x1="74" x2="266" y1="172" y2="172"></line>
+<line stroke="#1f4e79" stroke-width="2.2" x1="98" x2="242" y1="196" y2="196"></line>
+<line stroke="#c0392b" stroke-dasharray="5,4" stroke-width="1.4" x1="170" x2="170" y1="100" y2="196"></line>
+<line stroke="#c0392b" stroke-dasharray="6,4" stroke-width="1.8" x1="170" x2="242" y1="100" y2="196"></line>
+<rect fill="none" height="4" stroke="#c0392b" stroke-width="1" width="4" x="168" y="170"></rect>
+<circle cx="170" cy="100" fill="#1f4e79" r="4"></circle>
+<text fill="#1f4e79" font-size="14" x="178" y="95">O</text>
+<text fill="#1f4e79" font-size="13" x="120" y="164">16 cm</text>
+<text fill="#1f4e79" font-size="13" x="135" y="214">12 cm</text>
+<text fill="#c0392b" font-size="13" x="252" y="188">2 cm</text>
+<line stroke="#c0392b" stroke-width="1.2" x1="247" x2="247" y1="172" y2="196"></line>
+<polygon fill="#c0392b" points="247,172 244,176 250,176"></polygon>
+<polygon fill="#c0392b" points="247,196 244,192 250,192"></polygon>
+</svg>

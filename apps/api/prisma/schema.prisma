@@ -1,0 +1,484 @@
+// Prisma schema — 金瑞升学金鹰系统(TMUA/ESAT)
+// 开发环境:SQLite(不支持 enum,字段用 String 并注释合法值)
+// 生产环境:切换 provider 为 "postgresql" 后可恢复为 enum 类型
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// role 合法值:STUDENT | TEACHER | ADMIN
+//   ADMIN   最高权限管理员(可进入「教师管理」模块,新建/管理教师账号及其可见范围权限)
+// 学生账号审核状态 status 合法值:PENDING | APPROVED | REJECTED
+//   PENDING   待教师审核(注册后默认,不能登录/使用系统)
+//   APPROVED  已通过审核(可正常使用)
+//   REJECTED  已拒绝(账号已删除,邮箱释放可重新注册)
+// subject 合法值:数学 | 物理 | 化学 | 生物(科目,知识学科)
+// sourceType 合法值:TMUA | ESAT | NSAA | 其他考试题源(题源/试卷类型,与 subject 区分;可扩展)
+// type 合法值:SINGLE_CHOICE | MULTIPLE_CHOICE | NUMERIC
+// status 合法值:DRAFT | PENDING_REVIEW | PUBLISHED | REJECTED | ARCHIVED
+//   DRAFT         草稿(老师自建,未提交)
+//   PENDING_REVIEW 待审核(录入/导入后默认状态,学生不可见)
+//   PUBLISHED     已发布(老师审核通过,学生可见)
+//   REJECTED      已退回(审核未通过,需修改后重新提交)
+//   ARCHIVED      已下架
+// mode 合法值:PRACTICE | EXAM
+
+model User {
+  id               String    @id @default(cuid())
+  email            String    @unique
+  passwordHash     String
+  name             String
+  role             String    @default("STUDENT")
+  status           String    @default("PENDING") // 账号审核状态:PENDING | APPROVED | REJECTED
+  reviewNote       String?   // 审核意见(拒绝原因等)
+  reviewedBy       String?   // 审核人 id
+  reviewedAt       DateTime? // 审核时间
+  targetUniversity String?
+  // 教师可见范围权限(仅对 role=TEACHER 生效;ADMIN 不受限;空/null=全部可见)
+  permSubjects    String? // 学科白名单(JSON 数组,如 ["数学"]);空/null=全部学科
+  permSourceTypes String? // 题源白名单(JSON 数组,如 ["TMUA"]);空/null=全部题源
+  createdAt        DateTime  @default(now())
+  sessions         Session[]
+  wrongBook        WrongBook[]
+  roguelikeRuns    RoguelikeRun[]
+  assignments      AssignmentStudent[]
+  languageSessions LanguageSession[]
+  languageWrongBook LanguageWrongBook[]
+  favorites        FavoriteQuestion[]
+  groups           Group[] // 老师创建的学生分组
+  groupMemberships GroupStudent[] // 学生所属分组(反向关系)
+  reviewRequests   ReviewRequest[] // 学生发起的讲评请求(反向关系)
+}
+
+model Question {
+  id         String        @id @default(cuid())
+  subject    String // 科目:数学 | 物理 | 化学 | 生物
+  sourceType String? // 题源/试卷类型:TMUA | ESAT | NSAA | 其他(与 subject 区分)
+  paper      String?
+  topic      String // 主知识点名(兼容统计/过滤);关联库由 topicIds 决定
+  topicIds   String? // 知识点 id 列表(JSON 数组),题目可归属多个知识点
+  difficulty Int           @default(3)
+  type       String        @default("SINGLE_CHOICE")
+  stem       String
+  options    String
+  answer     String
+  solution   String?
+  source     String?
+  status     String        @default("PENDING_REVIEW")
+  createdBy  String?
+  reviewNote String? // 审核意见(驳回原因等)
+  reviewedBy String? // 审核人 id
+  reviewedAt DateTime? // 审核时间
+  autoFixLog String? // 最近一次「一键修正」的记录(JSON 字符串,含修正项与前后值)
+  importedAt DateTime? // 批量导入(Excel/Word/PDF)时间;手动录入的题目为空
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  records    AnswerRecord[]
+  wrongBook  WrongBook[]
+  favorites  FavoriteQuestion[]
+  reviewRequests ReviewRequest[] // 题被发起的讲评请求(反向关系)
+}
+
+// 题目收藏(学生端做题时收藏题目供自己查阅)
+model FavoriteQuestion {
+  id         String   @id @default(cuid())
+  studentId  String
+  student    User     @relation(fields: [studentId], references: [id])
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@unique([studentId, questionId])
+}
+
+// 学生讲评请求(从错题本 / 收藏发起,请求老师讲评某题)
+// source 合法值:WRONG_BOOK | FAVORITE
+//   WRONG_BOOK 来自错题本
+//   FAVORITE   来自题目收藏
+// status 合法值:PENDING | RESOLVED
+//   PENDING   待讲评(默认)
+//   RESOLVED  老师已讲评
+model ReviewRequest {
+  id         String   @id @default(cuid())
+  studentId  String
+  student    User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  source     String   @default("WRONG_BOOK") // WRONG_BOOK | FAVORITE
+  note       String?  // 学生附言(可选)
+  status     String   @default("PENDING")    // PENDING | RESOLVED
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([studentId, questionId]) // 同生同题仅一条,幂等防重复提交
+}
+
+// 知识点(老师手动维护,供题目归类)
+// subject 合法值:数学 | 物理 | 化学 | 生物
+model KnowledgePoint {
+  id        String   @id @default(cuid())
+  subject   String
+  name      String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([subject, name])
+}
+
+// 面试练习题(如剑桥数学面试题):开放式问答,无标准选项
+// steps 存 JSON 数组(逐步解答 HTML 片段)
+// status 合法值:DRAFT | PUBLISHED | ARCHIVED
+model InterviewQuestion {
+  id        String   @id @default(cuid())
+  subject   String // 标签文字,如 "Number Theory"
+  tagClass  String? // 标签配色,如 "nt" | "comb"
+  heading   String // 如 "Question 1 · The Sophie Germain identity"
+  stem      String // 题干 HTML(含 (i)(ii)(iii) 小问)
+  focus     String // "What the interviewer looks for" 提示
+  steps     String // JSON 数组,逐步解答 HTML
+  sortOrder Int      @default(0)
+  status    String   @default("PUBLISHED")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 试卷
+// origin 合法值:MANUAL(老师手动组卷) | AUTO_SET(套题录入时自动成卷)
+// status 合法值:DRAFT | READY | ARCHIVED
+//   DRAFT  组卷完成但仍有题目未审核通过 → 学生不可见、不可作答
+//   READY  卷内每道题都已审核发布 → 学生可作答
+//   ARCHIVED 已下架
+// sourceKey:套题去重键(subject::paper::source),保证同一套真题重复导入时并入同一张卷
+model Paper {
+  id          String   @id @default(cuid())
+  title       String
+  subject     String // 科目:数学 | 物理 | 化学 | 生物
+  sourceType  String? // 题源/试卷类型:TMUA | ESAT | NSAA | 其他(与 subject 区分)
+  questionIds String
+  source      String? // 来源,如 "TMUA 2016 真题"
+  origin      String   @default("MANUAL")
+  kind        String   @default("CUSTOM") // 套题类型:OFFICIAL 官方原版套题(如 PDF 导入的 TMUA/ESAT 真题) | CUSTOM 组卷套题(手动组卷或自编导入)
+  sourceKey   String?  @unique
+  createdBy   String? // 学生自建卷(origin=STUDENT)的创建者;老师组卷/自动成卷为空
+  status      String   @default("READY")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  sessions    Session[]
+  assignments Assignment[]
+}
+
+model Session {
+  id           String        @id @default(cuid())
+  studentId    String
+  student      User          @relation(fields: [studentId], references: [id])
+  paperId      String?
+  paper        Paper?        @relation(fields: [paperId], references: [id])
+  assignmentId String? // 该会话由哪份作业(作业/考试分发)发起;作业类型会话提交后自动回写目标状态
+  assignment   Assignment?   @relation(fields: [assignmentId], references: [id])
+  mode         String
+  durationMin  Int? // EXAM 模式的限时时长(分钟),超时后不可再作答
+  deadlineAt   DateTime? // EXAM 模式的绝对截止时间(可变):创建时 = startedAt + durationMin;中途退出暂停后续做时会被改写为 now + 剩余秒,使服务端不会误判超时
+  pausedRemaining Int? // EXAM 中途退出暂停时记录的剩余秒数(前端恢复用)
+  questionIds  String? // 本次会话全部题目 id(JSON 数组),用于交卷后补齐未答题展示错题
+  score        Float?
+  total        Int?
+  correctCount Int?
+  startedAt    DateTime      @default(now())
+  submittedAt  DateTime?
+  records      AnswerRecord[]
+}
+
+model AnswerRecord {
+  id         String   @id @default(cuid())
+  sessionId  String
+  session    Session  @relation(fields: [sessionId], references: [id])
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id])
+  selected   String?
+  isCorrect  Boolean?
+  timeSpent  Int?
+  createdAt  DateTime @default(now())
+
+  @@unique([sessionId, questionId])
+}
+
+model WrongBook {
+  id         String   @id @default(cuid())
+  studentId  String
+  student    User     @relation(fields: [studentId], references: [id])
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id])
+  wrongCount Int      @default(1)
+  mastered   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([studentId, questionId])
+}
+
+// Roguelike 冒险模式运行进度(一期:线性爬塔)
+// 题目不存于此表——每层临时抽题,答完即弃;判分/连击/血量全部后端权威计算
+model RoguelikeRun {
+  id        String   @id @default(cuid())
+  studentId String
+  student   User     @relation(fields: [studentId], references: [id])
+  subject   String
+  difficulty Int     @default(3)
+  layer     Int      @default(1) // 当前层(从 1 开始)
+  hp        Int      @default(5)
+  maxHp     Int      @default(5)
+  combo     Int      @default(0) // 当前连续正确
+  maxCombo  Int      @default(0) // 历史最大连击
+  score     Int      @default(0)
+  coins     Int      @default(0)
+  items     String? // 道具(JSON 数组),一期预留
+  status    String   @default("ACTIVE") // ACTIVE | WON | DEAD
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 作业/考试分发(教师端向指定学生布置练习卷/模考卷)
+// mode 合法值:PRACTICE | EXAM(决定学生端入口与是否限时)
+// status 合法值:ACTIVE | ARCHIVED(教师可下架)
+model Assignment {
+  id          String    @id @default(cuid())
+  teacherId   String // 发布者(教师/管理员)
+  paperId     String? // 学科卷(语言作业时为 null)
+  paper       Paper?    @relation(fields: [paperId], references: [id])
+  languagePaperId String? // 语言卷(雅思等);与 paperId 二选一
+  languagePaper   LanguagePaper? @relation(fields: [languagePaperId], references: [id])
+  title       String // 作业名称(默认取试卷名)
+  note        String? // 备注/要求
+  mode        String    @default("PRACTICE")
+  durationMin Int? // 模考/考试的限时时长(分钟);由老师分发或考试管理时设置,练习模式可空
+  dueAt       DateTime? // DDL(可空 = 不限时提交)
+  status      String    @default("ACTIVE")
+  groupIds    String? // 按组布置时记录的分组 id(JSON 数组);为空表示逐生布置。用于"分组管理-查看布置"下钻
+  createdAt   DateTime  @default(now())
+  targets     AssignmentStudent[]
+  sessions    Session[]
+  languageSessions LanguageSession[]
+}
+
+// 作业分发目标:一个学生一份作业一条记录,记录完成状态
+// status 合法值:PENDING 未交 | SUBMITTED 已交 | EXPIRED 过期未交(前端按 dueAt 计算,不持久化)
+// lateSubmit:逾期补交标记;提交时间晚于 assignment.dueAt 时为 true(仅当 dueAt 非空且作业确实已过期才有意义)
+model AssignmentStudent {
+  id           String     @id @default(cuid())
+  assignmentId String
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+  studentId    String
+  student      User       @relation(fields: [studentId], references: [id])
+  status       String     @default("PENDING")
+  lateSubmit   Boolean    @default(false)
+  sessionId    String? // 学生点击开始后创建的会话;提交后同步回写
+  submittedAt  DateTime?
+  createdAt    DateTime   @default(now())
+
+  @@unique([assignmentId, studentId])
+}
+
+// ——— 学生分组(教师可将学生分组,作业/考试按组布置)———
+// 说明:分组是"教师维度"的便捷选择集合,不替代作业/考试本身的"逐学生"分发结构。
+//   作业/考试创建时若传入 groupIds,后端会把组内学生展开成逐生的 AssignmentStudent(向后兼容)。
+// Group.name 在同一老师下唯一(teacherId_name),GroupStudent 同组学生唯一(groupId_studentId)。
+model Group {
+  id        String         @id @default(cuid())
+  teacherId String
+  teacher   User           @relation(fields: [teacherId], references: [id])
+  name      String
+  note      String?
+  createdAt DateTime       @default(now())
+  students  GroupStudent[]
+
+  @@unique([teacherId, name])
+}
+
+model GroupStudent {
+  id        String   @id @default(cuid())
+  groupId   String
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  studentId String
+  student   User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([groupId, studentId])
+}
+
+// ============================================================
+// 语言学习模块(雅思/其他语言)——完全独立于学科题库的数据表
+// 与 Question/Paper/Session 无任何关联,避免影响现有题库与功能
+// ============================================================
+// examType 合法值:IELTS | TOEFL | KET_PET | OTHER(其他语言考试,可扩展)
+// skill 合法值:LISTENING | READING | WRITING | SPEAKING | FULL(全真连考卷)
+// qType 合法值(按 skill 细分):
+//   LISTENING: FILL_BLANK 填空 | SINGLE_CHOICE | MULTIPLE_CHOICE | MATCHING 配对
+//   READING:   TRUE_FALSE_NG 判断T/F/NG | FILL_BLANK | SINGLE_CHOICE | MATCHING | HEADING 段落标题
+//   WRITING:   TASK1 | TASK2(开放作答,教师批改)
+//   SPEAKING:  PART1 | PART2 | PART3(录音作答,教师评分)
+// status 合法值:DRAFT | PENDING_REVIEW | PUBLISHED | REJECTED | ARCHIVED(与学科题一致)
+
+// 语言题材料:阅读文章 / 写作任务描述 / 口语提示卡(长文本);听力音频直接存 audioUrl
+model LanguageMaterial {
+  id        String   @id @default(cuid())
+  examType  String   @default("IELTS")
+  skill     String   @default("READING")
+  title     String? // 材料标题,如 "Passage 1: The Return of Artemisia"
+  content   String // 材料正文(长文本)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  questions LanguageQuestion[]
+}
+
+// 语言题目(独立于学科 Question 表)
+model LanguageQuestion {
+  id         String   @id @default(cuid())
+  examType   String   @default("IELTS")
+  skill      String   @default("READING")
+  qType      String   @default("SINGLE_CHOICE")
+  part       Int? // 听力 Part 1-4 / 阅读 Passage 1-3(全真模考分段用)
+  groupTitle String? // 题目组标题(如 "Part 1: 订房电话");无则直接题干
+  stem       String // 题干
+  options    String? // 选项(JSON 数组,选择题/匹配题)
+  answer     String? // 客观题答案;填空支持多个可接受答案用 | 分隔
+  solution   String? // 解析(客观题)或参考范文(写作)
+  audioUrl   String? // 听力音频地址(教师上传)
+  materialId String? // 关联材料(阅读文章/写作任务/口语提示)
+  material   LanguageMaterial? @relation(fields: [materialId], references: [id])
+  wordLimit  Int? // 写作词数要求
+  difficulty Int      @default(3)
+  status     String   @default("PENDING_REVIEW")
+  reviewNote String?
+  createdBy  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  records    LanguageAnswerRecord[]
+  wrongBook  LanguageWrongBook[]
+}
+
+// 语言试卷(独立于学科 Paper 表)
+// mode:PRACTICE 练习 | EXAM 模考(EXAM 时全真卷按 segments 分项倒计时)
+// segments:全真连考卷分段配置 JSON,如 [{"skill":"LISTENING","durationMin":30,"questionCount":40},{"skill":"READING","durationMin":60,...},...]
+model LanguagePaper {
+  id          String   @id @default(cuid())
+  examType    String   @default("IELTS")
+  skill       String   @default("READING")
+  title       String
+  questionIds String // 题目 id 列表(JSON 数组)
+  segments    String? // 全真连考卷分段配置(JSON 数组,见上注释)
+  mode        String   @default("PRACTICE")
+  durationMin Int? // EXAM 卷总限时(分钟);练习卷可空
+  source      String?
+  kind        String   @default("CUSTOM") // OFFICIAL 官方原版 | CUSTOM 组卷
+  status      String   @default("READY") // DRAFT | READY | ARCHIVED
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  sessions    LanguageSession[]
+  assignments Assignment[]
+}
+
+// 语言会话(独立于学科 Session 表)
+// mode:PRACTICE | EXAM
+// band:听/读客观题按官方换算表折算;写/口语会话为教师批改后的 Band(可空,未批改)
+model LanguageSession {
+  id           String   @id @default(cuid())
+  studentId    String
+  student      User     @relation(fields: [studentId], references: [id])
+  paperId      String?
+  paper        LanguagePaper? @relation(fields: [paperId], references: [id])
+  assignmentId String? // 由语言作业分发发起的会话
+  assignment   Assignment? @relation(fields: [assignmentId], references: [id])
+  examType     String   @default("IELTS")
+  skill        String // 单技能卷的 skill,或 FULL
+  mode         String
+  durationMin  Int? // EXAM 限时(分钟)
+  score        Float? // 客观题原始分
+  total        Int?
+  correctCount Int?
+  band         Float? // 折算后的 Band(0-9,0.5 进制)
+  startedAt    DateTime @default(now())
+  submittedAt  DateTime?
+  records      LanguageAnswerRecord[]
+}
+
+// 语言作答记录(独立于学科 AnswerRecord)
+// 客观题:selected 存答案,isCorrect 自动判
+// 写作/口语:selected 存学生文字作答,audioUrl 存口语录音,band/feedback 由教师批改填写
+model LanguageAnswerRecord {
+  id         String   @id @default(cuid())
+  sessionId  String
+  session    LanguageSession @relation(fields: [sessionId], references: [id])
+  questionId String
+  question   LanguageQuestion @relation(fields: [questionId], references: [id])
+  selected   String?
+  isCorrect  Boolean?
+  band       Float? // 教师批改分项 Band
+  feedback   String? // 教师评语
+  audioUrl   String? // 口语录音地址
+  timeSpent  Int?
+  createdAt  DateTime @default(now())
+
+  @@unique([sessionId, questionId])
+}
+
+// 语言错题本(独立于学科 WrongBook)
+model LanguageWrongBook {
+  id         String   @id @default(cuid())
+  studentId  String
+  student    User     @relation(fields: [studentId], references: [id])
+  questionId String
+  question   LanguageQuestion @relation(fields: [questionId], references: [id])
+  wrongCount Int      @default(1)
+  mastered   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([studentId, questionId])
+}
+
+// ============================================================
+// 升学规划模块(独立:与笔试题库/会话/作业等无任何关联,不影响现有笔试功能与数据)
+// 由 public/planning.html(去品牌后的「升学规划档案」)通过 /api/planning 读写
+//   data 存档案表单 JSON(字段随前端表单演进,后端不解析其内部结构)
+//   plan 存规划方案/知识库(JSON,可选;前端看板也会基于 data 本地计算)
+// ============================================================
+model PlanningProfile {
+  id         String   @id @default(cuid())
+  studentId  String   @unique // 以 User(cuid) 为主键,取代原 BLUE 表单的"学生姓名"主键
+  data       String // 档案表单完整 JSON(字符串化)
+  plan       String? // 规划方案/知识库 JSON(可选)
+  updatedAt  DateTime @updatedAt
+}
+
+// 升学规划「档案填写任务」:教师发布任务 -> 指定学生 -> 学生在学生端填写并提交档案
+// 完全独立,与笔试题库/作业/会话等无任何关联。
+// status 用字符串常量,避免引入 Prisma enum 与迁移复杂度:
+//   PlanningTask.status      : ACTIVE(进行中) | CLOSED(已关闭/重开前)
+//   PlanningTaskStudent.status: PENDING(未开始) | DRAFT(已保存草稿) | SUBMITTED(已提交)
+model PlanningTask {
+  id         String   @id @default(cuid())
+  teacherId  String // 发布者(User cuid)
+  title      String // 任务标题,默认"完善你的升学规划档案"
+  intro      String? // 任务说明(可选)
+  status     String   @default("ACTIVE")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model PlanningTaskStudent {
+  id          String    @id @default(cuid())
+  taskId      String
+  studentId   String
+  status      String    @default("PENDING") // PENDING | DRAFT | SUBMITTED
+  submittedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([taskId, studentId])
+}

@@ -1,0 +1,13 @@
+【解析】
+$f(f(x)) = f(x)$ ⇔ 令 $y = f(x)$，则 $f(y) = y$。
+
+解 $f(y)=y$：$y^3 - 3y = y \Rightarrow y^3 - 4y = 0 \Rightarrow y(y-2)(y+2) = 0$，得 $y \in \{0, 2, -2\}$。
+
+分别解 $f(x) = y$：
+- $f(x)=0$：$x^3-3x=0 \Rightarrow x(x^2-3)=0 \Rightarrow x \in \{0, \sqrt{3}, -\sqrt{3}\}$（3 个不同实数解）。
+- $f(x)=2$：$x^3-3x-2=0 \Rightarrow (x+1)^2(x-2)=0 \Rightarrow x \in \{-1, 2\}$（2 个不同实数解）。
+- $f(x)=-2$：$x^3-3x+2=0 \Rightarrow (x-1)^2(x+2)=0 \Rightarrow x \in \{1, -2\}$（2 个不同实数解）。
+
+合并去重：$\{0, \sqrt{3}, -\sqrt{3}, -1, 2, 1, -2\}$，共 **7** 个不同实数值。
+
+答案为 **$7$**。

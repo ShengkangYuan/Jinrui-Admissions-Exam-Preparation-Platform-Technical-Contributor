@@ -1,0 +1,74 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: '40px 64px',
+  flexDirection: 'column',
+}}>
+  <Text style={{
+    fontSize: 34,
+    fontWeight: 'bold',
+    color: '#F8FAFC',
+    marginBottom: 24,
+    fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+  }}>
+    冒险模式 · Roguelike 即时战斗让刷题更上瘾
+  </Text>
+  <Box style={{
+    flexDirection: 'row',
+    gap: 28,
+    flex: 1,
+    alignItems: 'stretch',
+  }}>
+    <Box style={{
+      width: 360,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      gap: 18,
+    }}>
+      <Text style={{ fontSize: 19, color: '#C7D0E0', lineHeight: 1.6 }}>
+        把答题正确率转化为战斗伤害，答错则扣血；爬塔、Boss、奖励节点、被动技能树让备考像游戏一样有反馈。
+      </Text>
+      {[
+        { title: '即时战斗', desc: '每题即一回合，伤害实时结算' },
+        { title: '28 个被动技能', desc: '攻击 / 法术 / 防御 / 续航四大树' },
+        { title: '升级三选一', desc: '每层奖励节点抽技能，策略组合' },
+        { title: '主动技 · 虚空魔弹', desc: '消耗蓝量穿透全场，冷却 8 拍' },
+      ].map((c, i) => (
+        <Box key={i} style={{
+          background: '#131C33',
+          borderRadius: 14,
+          padding: 16,
+          flexDirection: 'column',
+          gap: 4,
+          borderLeft: '3px solid #D4AF37',
+        }}>
+          <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#F8FAFC' }}>{c.title}</Text>
+          <Text style={{ fontSize: 14, color: '#7A89A3' }}>{c.desc}</Text>
+        </Box>
+      ))}
+    </Box>
+    <Box style={{
+      flex: 1,
+      background: '#131C33',
+      borderRadius: 20,
+      padding: 10,
+      border: '1px solid rgba(37,99,235,0.2)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
+      <Image
+        src="assets/07_roguelike.png"
+        style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 12 }}
+      />
+    </Box>
+  </Box>
+  <Box style={{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 24,
+  }}>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>11 / 18</Text>
+  </Box>
+</Slide>

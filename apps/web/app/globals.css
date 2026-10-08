@@ -1,0 +1,1160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+}
+
+@layer components {
+  /* 统一输入框与下拉框视觉风格 */
+  .ui-input {
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200;
+  }
+  .ui-select {
+    @apply appearance-none bg-no-repeat pr-9;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%2394a3b8' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 8l4.5 4.5L14.5 8'/%3E%3C/svg%3E");
+    background-position: right 0.6rem center;
+    background-size: 1.1rem;
+  }
+  .ui-select:focus {
+    @apply border-indigo-500 ring-2 ring-indigo-200;
+  }
+}
+
+/* ===== 冒险模式 Phase A 特效 ===== */
+
+/* 深色氛围背景:渐变 + 流动光 + 星空 */
+.roguelike-bg {
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(99, 102, 241, 0.18), transparent 60%),
+    radial-gradient(1000px 500px at 90% 110%, rgba(34, 211, 238, 0.12), transparent 60%),
+    radial-gradient(2px 2px at 12% 22%, rgba(255, 255, 255, 0.55), transparent),
+    radial-gradient(2px 2px at 34% 68%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(2px 2px at 58% 15%, rgba(255, 255, 255, 0.45), transparent),
+    radial-gradient(1.5px 1.5px at 76% 42%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(2px 2px at 88% 75%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1.5px 1.5px at 45% 90%, rgba(255, 255, 255, 0.4), transparent),
+    linear-gradient(160deg, #0f172a 0%, #1e1b4b 55%, #172554 100%);
+  animation: rogue-bg-shift 18s ease-in-out infinite alternate;
+}
+@keyframes rogue-bg-shift {
+  0% { background-position: 0 0, 0 0, 12% 22%, 34% 68%, 58% 15%, 76% 42%, 88% 75%, 45% 90%, 0 0; }
+  100% { background-position: 0 0, 0 0, 13% 23%, 35% 67%, 57% 14%, 77% 43%, 87% 74%, 46% 91%, 0 0; }
+}
+
+/* 屏幕震动(答错) */
+.shake {
+  animation: rogue-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+@keyframes rogue-shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-6px); }
+  40%, 60% { transform: translateX(6px); }
+}
+
+/* 连击数字脉冲 */
+.combo-pop {
+  animation: rogue-combo-pop 0.45s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+@keyframes rogue-combo-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.45); }
+  100% { transform: scale(1); }
+}
+
+/* 连击火焰(≥3 连) */
+.combo-fire {
+  display: inline-block;
+  animation: rogue-fire 0.5s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.8));
+}
+@keyframes rogue-fire {
+  0% { transform: scale(1) rotate(-4deg); }
+  100% { transform: scale(1.22) rotate(4deg); }
+}
+
+/* 卡片弹跳(答题反馈) */
+.pop-in {
+  animation: rogue-pop-in 0.32s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+@keyframes rogue-pop-in {
+  0% { transform: scale(0.92); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 奖励节点礼物盒弹跳 */
+.gift-bounce {
+  animation: rogue-gift 1.1s ease-in-out infinite;
+}
+@keyframes rogue-gift {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.06); }
+}
+
+/* 低血量警示 */
+.low-hp {
+  animation: rogue-lowhp 1s ease-in-out infinite;
+}
+@keyframes rogue-lowhp {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+  50% { box-shadow: 0 0 12px 2px rgba(239, 68, 68, 0.55); }
+}
+
+/* ===== 冒险模式 Phase B 事件特效 ===== */
+
+/* Boss 战红色暗角氛围 */
+.boss-arena {
+  position: relative;
+  isolation: isolate;
+}
+.boss-arena::before {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 35%, rgba(127, 29, 29, 0.6) 100%),
+    radial-gradient(circle at 22% 8%, rgba(239, 68, 68, 0.22), transparent 50%),
+    radial-gradient(circle at 80% 95%, rgba(220, 38, 38, 0.18), transparent 55%);
+  animation: rogue-boss-pulse 2.6s ease-in-out infinite;
+}
+@keyframes rogue-boss-pulse {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+/* Boss / 敌人像素头像(24x24 像素图放大,image-rendering 保持锐利) */
+.portrait {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  display: inline-block;
+}
+.portrait-boss {
+  filter: drop-shadow(0 0 14px rgba(239, 68, 68, 0.85)) drop-shadow(0 0 28px rgba(220, 38, 38, 0.4));
+  animation: rogue-portrait-bob 1.6s ease-in-out infinite;
+}
+.portrait-enemy {
+  filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.6));
+  animation: rogue-portrait-bob 2.2s ease-in-out infinite;
+}
+@keyframes rogue-portrait-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* 全屏横幅(Boss 出现 / 击败 / 奖励领取) */
+.banner {
+  position: fixed;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  font-size: 1.05rem;
+  pointer-events: none;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+  animation: rogue-banner 2.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+}
+.banner-boss {
+  background: linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%);
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+.banner-defeat {
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+.banner-claim {
+  background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+.banner-victory {
+  background: linear-gradient(135deg, #fbbf24 0%, #f97316 50%, #ef4444 100%);
+  color: #fff;
+  font-size: 1.5rem;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+}
+@keyframes rogue-banner {
+  0% { opacity: 0; transform: translate(-50%, -30px) scale(0.8); }
+  12% { opacity: 1; transform: translate(-50%, 0) scale(1.08); }
+  22% { transform: translate(-50%, 0) scale(1); }
+  78% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -16px) scale(0.95); }
+}
+
+/* 通关彩带幕 */
+.victory-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  overflow: hidden;
+}
+.victory-curtain::before,
+.victory-curtain::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(251, 191, 36, 0.42) 20deg,
+    transparent 40deg,
+    rgba(244, 114, 182, 0.38) 80deg,
+    transparent 100deg,
+    rgba(99, 102, 241, 0.38) 160deg,
+    transparent 180deg,
+    rgba(34, 197, 94, 0.38) 240deg,
+    transparent 260deg,
+    rgba(168, 85, 247, 0.38) 320deg,
+    transparent 360deg
+  );
+  animation: rogue-victory-spin 9s linear infinite;
+}
+.victory-curtain::after {
+  animation-duration: 14s;
+  animation-direction: reverse;
+  opacity: 0.55;
+}
+@keyframes rogue-victory-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 死亡暗幕 */
+.death-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  background: radial-gradient(circle at center, rgba(15, 23, 42, 0.55), rgba(0, 0, 0, 0.88));
+  animation: rogue-death 1.4s ease-out forwards;
+}
+@keyframes rogue-death {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* 奖励节点金币雨(CSS emoji 雨,两层错落) */
+.coin-rain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+.coin-rain::before,
+.coin-rain::after {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  right: 0;
+  font-size: 22px;
+  letter-spacing: 1.6rem;
+  white-space: nowrap;
+  opacity: 0.75;
+  animation: rogue-coin-fall 3.6s linear infinite;
+}
+.coin-rain::before { content: "🪙 🟡 💰 🪙 💎 🪙 🟡 💰 🪙 💎"; }
+.coin-rain::after {
+  content: "💰 🪙 🪙 💎 🟡 🪙 💰 💎 🪙 🟡";
+  animation-duration: 5s;
+  animation-delay: -1.8s;
+  left: -8%;
+  opacity: 0.55;
+}
+@keyframes rogue-coin-fall {
+  0% { transform: translateY(-50px); }
+  100% { transform: translateY(560px); }
+}
+
+/* 奖励横幅滑入(顶部) */
+.reward-slide {
+  animation: rogue-reward-slide 0.55s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+@keyframes rogue-reward-slide {
+  0% { transform: translateX(-100%); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+/* 行内公式:必须保持 inline + baseline + overflow:visible,不能用 inline-block 加 overflow:auto
+   等会改变基线的容器包裹,否则基线会落到块底部,导致 x/公式与正文上下错位(#21)。
+   KaTeX 默认 font-size:1.21em 是数学与正文的协调比例,不要对 .katex 强制 1em,
+   否则公式/字母/数字会比正文小,并波及题库、练习、错题本等所有使用 renderRich 的页面(#22)。 */
+.math-inline {
+  display: inline;
+  vertical-align: baseline;
+  overflow: visible;
+}
+.math-inline .katex {
+  display: inline;
+  vertical-align: baseline;
+}
+
+/* ===== 冒险模式 三段式布局(顶部舞台 / 中下 HUD / 底部答题) ===== */
+
+/* 顶部舞台:环境背景 + 第一视角敌人 */
+.rogue-stage {
+  position: relative;
+  min-height: 46vh;
+  border-radius: 1.25rem 1.25rem 0 0;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(99, 102, 241, 0.30), transparent 60%),
+    linear-gradient(180deg, #1e1b4b 0%, #312e81 52%, #0b1020 100%);
+  box-shadow: inset 0 -50px 70px rgba(0, 0, 0, 0.55), inset 0 0 40px rgba(0, 0, 0, 0.4);
+}
+/* 地面透视与暗角 */
+.rogue-stage::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 44%;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+}
+/* Boss 战红色暗角氛围 */
+.stage-boss::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 38%, rgba(127, 29, 29, 0.55) 100%),
+    radial-gradient(circle at 22% 8%, rgba(239, 68, 68, 0.22), transparent 50%),
+    radial-gradient(circle at 80% 95%, rgba(220, 38, 38, 0.18), transparent 55%);
+  animation: rogue-boss-pulse 2.6s ease-in-out infinite;
+}
+/* 低血量危险红边 */
+.stage-danger::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 3px rgba(239, 68, 68, 0.55);
+}
+
+/* 顶部浮层 HUD */
+.stage-top {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  font-size: 0.8rem;
+  color: #e2e8f0;
+}
+.stage-badge {
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 8px;
+  background: rgba(99, 102, 241, 0.28);
+  color: #c7d2fe;
+}
+.stage-badge.is-boss { background: rgba(220, 38, 38, 0.9); color: #fff; }
+.stage-subject { color: #cbd5e1; }
+.stage-stat { color: #e2e8f0; }
+.stage-stat b { color: #fff; }
+.stage-quit {
+  margin-left: auto;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 2px 9px;
+  font-size: 0.7rem;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.05);
+}
+.stage-quit:hover { background: rgba(255, 255, 255, 0.15); }
+
+/* 敌人显示区(第一视角:敌人位于上方、靠近) */
+.stage-center {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 6%;
+}
+.stage-sprite-wrap { position: relative; line-height: 0; }
+.stage-sprite-wrap::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: -4%;
+  transform: translateX(-50%);
+  width: 62%; height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.5), transparent 70%);
+}
+.stage-sprite {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  display: inline-block;
+  max-height: 64vh;
+  filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.6));
+  animation: stage-bob 3s ease-in-out infinite;
+}
+.stage-sprite-enemy { width: 64%; max-width: 360px; }
+.stage-sprite-boss {
+  width: 82%; max-width: 520px;
+  filter: drop-shadow(0 0 22px rgba(239, 68, 68, 0.7)) drop-shadow(0 16px 18px rgba(0, 0, 0, 0.6));
+}
+@keyframes stage-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.stage-nameplate {
+  position: absolute;
+  bottom: 10px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 4px 16px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fecaca;
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+/* 中下部 HUD:技能 / 血量 / 装备 */
+.rogue-hud {
+  background: rgba(15, 23, 42, 0.94);
+  border-radius: 0 0 1.25rem 1.25rem;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.hud-hp { position: relative; display: flex; align-items: center; gap: 8px; }
+.hud-hp-label { font-size: 0.75rem; color: #fca5a5; white-space: nowrap; }
+.hud-hp-bar { flex: 1; height: 11px; background: rgba(255, 255, 255, 0.12); border-radius: 999px; overflow: hidden; }
+.hud-hp-fill { height: 100%; border-radius: 999px; background: #22c55e; transition: width 0.3s, background 0.3s; }
+.hud-hp.low-hp .hud-hp-fill { background: #ef4444; }
+.hud-hp-num { font-size: 0.75rem; color: #e2e8f0; white-space: nowrap; min-width: 48px; text-align: right; }
+/* 浮动战斗数字:伤害红 / 回复绿 */
+.combat-float {
+  position: absolute; right: 6px; top: -4px;
+  font-weight: 800; font-size: 1.05rem; line-height: 1;
+  pointer-events: none; z-index: 6;
+  animation: combat-float 0.9s ease-out forwards;
+}
+.combat-float.dmg { color: #fca5a5; text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
+.combat-float.heal { color: #6ee7b7; text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
+@keyframes combat-float {
+  0% { opacity: 0; transform: translateY(6px) scale(0.9); }
+  18% { opacity: 1; transform: translateY(0) scale(1.05); }
+  100% { opacity: 0; transform: translateY(-22px) scale(1); }
+}
+.hud-items { display: flex; flex-wrap: wrap; gap: 6px; }
+.hud-item {
+  border: 1px solid rgba(129, 140, 248, 0.5);
+  background: rgba(79, 70, 229, 0.2);
+  color: #c7d2fe;
+  border-radius: 9px;
+  padding: 5px 11px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.hud-item:hover { background: rgba(79, 70, 229, 0.36); }
+.hud-hint { font-size: 0.68rem; color: #94a3b8; margin: 0; }
+
+/* 底部答题区 */
+.rogue-question {
+  margin-top: 12px;
+  background: #fff;
+  border-radius: 1.25rem;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.rogue-question.is-boss { border: 1px solid rgba(220, 38, 38, 0.4); }
+/* 整屏三栏：左=题干 / 中=战斗画面(舞台+HUD) / 右=选项 */
+.battle-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 12px;
+}
+.battle-left, .battle-right { min-width: 0; }
+.battle-center { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.battle-panel {
+  background: #fff;
+  border-radius: 1.25rem;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.battle-panel.is-boss { border: 1px solid rgba(220, 38, 38, 0.4); }
+.battle-panel .q-hint { letter-spacing: 0.02em; }
+/* 中等及以下屏幕：战斗画面在上,题干、选项依次在下(避免题干被挤成窄条显示不完整) */
+@media (max-width: 1100px) {
+  .battle-layout { grid-template-columns: 1fr; gap: 12px; }
+  .battle-center { order: 1; }
+  .battle-left { order: 2; }
+  .battle-right { order: 3; }
+}
+.rogue-toast {
+  margin-top: 12px;
+  border-radius: 0.75rem;
+  background: #fef3c7;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  color: #b45309;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+.rogue-error {
+  margin-top: 12px;
+  border-radius: 0.5rem;
+  background: #fef2f2;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  color: #dc2626;
+}
+.rogue-claim-btn,
+.rogue-submit-btn {
+  margin-top: 16px;
+  height: 40px;
+  width: 100%;
+  border-radius: 0.5rem;
+  background: #4f46e5;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.rogue-claim-btn { background: #f59e0b; }
+.rogue-claim-btn:hover { background: #d97706; }
+.rogue-submit-btn:hover { background: #4338ca; }
+.rogue-submit-btn:disabled,
+.rogue-claim-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.rogue-btn-secondary {
+  height: 40px;
+  flex: 1;
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #475569;
+}
+.rogue-btn-secondary:hover { background: #f1f5f9; }
+
+/* ===== V1.6 战斗氛围 / 装备 / 技能 UI ===== */
+
+/* 放大怪物:源图已 4x 放大到 256x256,这里用百分比/像素显著调大显示尺寸 */
+.stage-sprite-enemy { width: 64%; max-width: 360px; }
+.stage-sprite-boss {
+  width: 82%; max-width: 520px;
+  filter: drop-shadow(0 0 30px rgba(239, 68, 68, 0.85)) drop-shadow(0 16px 18px rgba(0, 0, 0, 0.6));
+}
+
+/* 分区背景(森林/海洋/山地/熔岩): 实景素材 + 色调叠加,确保文字可读 */
+.zone-forest {
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(34, 197, 94, 0.22), transparent 60%),
+    linear-gradient(180deg, rgba(5, 46, 26, 0.50) 0%, rgba(5, 46, 26, 0.80) 100%),
+    url(/images/rogue/bg_forest.png) center / cover no-repeat;
+}
+.zone-ocean {
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(56, 189, 248, 0.22), transparent 60%),
+    linear-gradient(180deg, rgba(8, 47, 73, 0.50) 0%, rgba(8, 47, 73, 0.80) 100%),
+    url(/images/rogue/bg_ocean.png) center / cover no-repeat;
+}
+.zone-mountain {
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(148, 163, 184, 0.22), transparent 60%),
+    linear-gradient(180deg, rgba(30, 41, 59, 0.55) 0%, rgba(30, 41, 59, 0.82) 100%),
+    url(/images/rogue/bg_mountain.png) center / cover no-repeat;
+}
+.zone-volcano {
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(249, 115, 22, 0.24), transparent 60%),
+    linear-gradient(180deg, rgba(42, 10, 10, 0.50) 0%, rgba(42, 10, 10, 0.82) 100%),
+    url(/images/rogue/bg_volcano.png) center / cover no-repeat;
+}
+
+/* 环境装饰素材(放大并提亮,在实景背景上更醒目) */
+.stage-deco {
+  position: absolute;
+  bottom: 6%;
+  z-index: 1;
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  opacity: 0.72;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+  pointer-events: none;
+}
+.stage-deco-left { left: 6%; }
+.stage-deco-right { right: 6%; transform: scaleX(-1); }
+
+/* 玩家第一视角手持武器 */
+.stage-weapon {
+  position: absolute;
+  right: 4%;
+  bottom: -6%;
+  z-index: 4;
+  width: 26%;
+  max-width: 150px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.5));
+  transform: rotate(-18deg);
+  transform-origin: bottom right;
+  animation: weapon-idle 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes weapon-idle {
+  0%, 100% { transform: rotate(-18deg) translateY(0); }
+  50% { transform: rotate(-14deg) translateY(-4px); }
+}
+
+/* 敌人攻击动画(答错时前扑) */
+.enemy-attack {
+  animation: enemy-lunge 0.45s ease-in-out !important;
+}
+@keyframes enemy-lunge {
+  0% { transform: translateY(0) scale(1); }
+  35% { transform: translateY(22%) scale(1.12); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* 蓝条 + 等级 */
+.hud-mana-row { display: flex; align-items: center; gap: 8px; }
+.hud-level {
+  font-size: 0.72rem; font-weight: 700; color: #a5b4fc;
+  background: rgba(79, 70, 229, 0.25); padding: 2px 8px; border-radius: 8px; white-space: nowrap;
+}
+.hud-mana {
+  position: relative; flex: 1; height: 16px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1); overflow: hidden;
+}
+.hud-mana-fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: linear-gradient(90deg, #2563eb, #38bdf8);
+  transition: width 0.3s;
+}
+.hud-mana-num {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 0.68rem; color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+/* 身上穿戴(小画面) */
+.hud-equipped { display: flex; gap: 6px; }
+.equip-slot {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
+  border: 1px dashed rgba(255, 255, 255, 0.2); border-radius: 10px; padding: 5px 4px;
+  min-height: 46px; justify-content: center;
+}
+.equip-slot.filled { border-style: solid; border-color: rgba(251, 191, 36, 0.6); background: rgba(251, 191, 36, 0.1); }
+.equip-icon { font-size: 1.25rem; line-height: 1; }
+.equip-name { font-size: 0.62rem; color: #fde68a; text-align: center; }
+
+.hud-section-label {
+  width: 100%; font-size: 0.62rem; color: #94a3b8; letter-spacing: 0.05em; margin-top: 2px;
+}
+.hud-items { display: flex; flex-wrap: wrap; gap: 6px; }
+.hud-item {
+  border: 1px solid rgba(129, 140, 248, 0.5);
+  background: rgba(79, 70, 229, 0.2);
+  color: #c7d2fe;
+  border-radius: 9px; padding: 5px 10px; font-size: 0.78rem; font-weight: 600;
+}
+.hud-item:hover { background: rgba(79, 70, 229, 0.36); }
+.item-heal { border-color: rgba(52, 211, 153, 0.6); background: rgba(16, 185, 129, 0.18); color: #a7f3d0; }
+.item-attack { border-color: rgba(248, 113, 113, 0.6); background: rgba(239, 68, 68, 0.18); color: #fecaca; }
+.item-defense { border-color: rgba(96, 165, 250, 0.6); background: rgba(59, 130, 246, 0.18); color: #bfdbfe; }
+.item-utility { border-color: rgba(250, 204, 21, 0.6); background: rgba(234, 179, 8, 0.18); color: #fef08a; }
+.gear-item { border-color: rgba(251, 191, 36, 0.6); background: rgba(251, 191, 36, 0.14); color: #fde68a; }
+.skill-item { border-color: rgba(167, 139, 250, 0.6); background: rgba(139, 92, 246, 0.2); color: #ddd6fe; }
+.skill-item.no-mana { opacity: 0.45; }
+.skill-cost { font-size: 0.62rem; opacity: 0.85; }
+
+/* 升级三选一弹窗 */
+.skill-modal-mask {
+  position: fixed; inset: 0; z-index: 70;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, 0.6); padding: 16px;
+}
+.skill-modal {
+  width: 100%; max-width: 30rem; background: #0f172a;
+  border: 1px solid rgba(167, 139, 250, 0.5); border-radius: 1rem; padding: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+.skill-modal-title { text-align: center; font-size: 1.05rem; font-weight: 800; color: #ddd6fe; margin-bottom: 12px; }
+.skill-choices { display: flex; flex-direction: column; gap: 10px; }
+.skill-choice {
+  display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "icon name cost" "icon desc desc";
+  gap: 2px 10px; align-items: center; text-align: left;
+  border: 1px solid rgba(139, 92, 246, 0.4); border-radius: 0.75rem; padding: 10px 12px;
+  background: rgba(139, 92, 246, 0.12); color: #e9d5ff; transition: background 0.2s;
+}
+.skill-choice:hover { background: rgba(139, 92, 246, 0.28); }
+.sc-icon { grid-area: icon; font-size: 1.6rem; }
+.sc-name { grid-area: name; font-weight: 700; }
+.sc-tier { grid-area: cost; font-size: 0.7rem; color: #c4b5fd; }
+.sc-desc { grid-area: desc; font-size: 0.74rem; color: #cbd5e1; }
+
+/* ===== V2.0 即时制战斗 UI ===== */
+
+/* 答题倒计时条:三档区间(绿=完美 / 橙=迅捷 / 红=普通),标记线随已用时间左→右推进 */
+.combat-timer {
+  position: relative;
+  z-index: 3;
+  margin: 0 12px;
+  padding-top: 8px;
+}
+.timer-track {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  overflow: visible;
+  background: linear-gradient(90deg,
+    #22c55e 0%, #22c55e 30%,
+    #f59e0b 30%, #f59e0b 60%,
+    #ef4444 60%, #ef4444 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+.timer-marker {
+  position: absolute;
+  top: -4px;
+  width: 4px;
+  height: 18px;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+  transform: translateX(-50%);
+  transition: left 0.1s linear;
+}
+.timer-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  font-size: 0.72rem;
+  color: #e2e8f0;
+}
+.timer-sec { font-weight: 700; color: #fde68a; }
+.timer-tier { font-weight: 700; }
+.timer-note { color: #cbd5e1; opacity: 0.85; }
+
+/* 多敌人同屏 */
+.enemy-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 14px 10px;
+  width: 100%;
+  padding: 0 8px;
+}
+.enemy-row.solo { gap: 0; }
+.enemy-card {
+  flex: 1 1 96px;
+  max-width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.enemy-card.is-boss { flex-basis: 200px; max-width: 340px; }
+.enemy-row.solo .enemy-card { flex: 0 1 auto; max-width: 60%; }
+
+.enemy-sprite-wrap {
+  position: relative;
+  line-height: 0;
+}
+.enemy-sprite-wrap::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: -3%;
+  transform: translateX(-50%);
+  width: 64%; height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.5), transparent 70%);
+}
+.enemy-sprite {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  display: inline-block;
+  filter: drop-shadow(0 12px 14px rgba(0, 0, 0, 0.6));
+  animation: stage-bob 3s ease-in-out infinite;
+}
+.enemy-sprite-normal { width: 100%; max-width: 130px; }
+.enemy-sprite-boss {
+  width: 100%;
+  max-width: 320px;
+  filter: drop-shadow(0 0 22px rgba(239, 68, 68, 0.7)) drop-shadow(0 12px 14px rgba(0, 0, 0, 0.6));
+}
+.enemy-hit { animation: enemy-hit-flash 0.22s ease-out !important; }
+@keyframes enemy-hit-flash {
+  0% { filter: brightness(2.4) drop-shadow(0 0 10px #fff); }
+  100% { filter: none; }
+}
+
+/* 攻击蓄力预警环(本地推算) */
+.windup-ring {
+  position: absolute;
+  top: -6px; left: 50%;
+  transform: translateX(-50%);
+  width: 40px; height: 40px;
+  pointer-events: none;
+  z-index: 2;
+}
+.wr-bg { fill: none; stroke: rgba(255, 255, 255, 0.22); stroke-width: 3; }
+.wr-fg {
+  fill: none;
+  stroke: #38bdf8;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dashoffset 0.1s linear, stroke 0.2s;
+}
+.windup-ring.danger .wr-fg { stroke: #ef4444; }
+.windup-ring.danger { animation: windup-pulse 0.6s ease-in-out infinite; }
+@keyframes windup-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* 敌人血条 */
+.enemy-meta { width: 100%; max-width: 140px; text-align: center; }
+.enemy-name { font-size: 0.66rem; color: #cbd5e1; margin-bottom: 2px; white-space: nowrap; }
+.enemy-hp {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.enemy-hp-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ef4444, #f97316);
+  transition: width 0.25s;
+}
+.enemy-card.is-boss .enemy-hp-fill { background: linear-gradient(90deg, #dc2626, #f59e0b); }
+.enemy-hp-num {
+  position: absolute;
+  inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.58rem; color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* 敌人飘字(命中/格挡/受伤) */
+.enemy-float {
+  position: absolute;
+  top: 8px; left: 50%;
+  transform: translateX(-50%);
+  font-weight: 800; font-size: 1rem; line-height: 1;
+  pointer-events: none; z-index: 4;
+  animation: enemy-float 0.95s ease-out forwards;
+}
+.enemy-float.hit { color: #fde047; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); }
+.enemy-float.dmg { color: #fca5a5; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); }
+.enemy-float.block { color: #93c5fd; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); }
+@keyframes enemy-float {
+  0% { opacity: 0; transform: translate(-50%, 4px) scale(0.9); }
+  18% { opacity: 1; transform: translate(-50%, -2px) scale(1.08); }
+  100% { opacity: 0; transform: translate(-50%, -26px) scale(1); }
+}
+
+/* 超时红屏闪烁 */
+.timeout-flash {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: radial-gradient(circle at center, rgba(239, 68, 68, 0.05), rgba(239, 68, 68, 0.4));
+  animation: timeout-flash 0.5s ease-out forwards;
+}
+@keyframes timeout-flash {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ===================================================================
+   V2.2 被动技能表现层：状态条 / 被动清单 / 主动被动 / 灼烧标记 / 被动卡
+   =================================================================== */
+
+/* --- 实时状态条(由 passiveStats 折算) --- */
+.hud-buffs { display: flex; flex-wrap: wrap; gap: 5px; }
+.buff-chip {
+  display: inline-flex; align-items: center; gap: 3px;
+  border: 1px solid transparent; border-radius: 7px;
+  padding: 2px 6px; font-size: 0.66rem; font-weight: 700;
+  line-height: 1.35; white-space: nowrap;
+}
+.bc-icon { font-size: 0.78rem; line-height: 1; }
+.bc-text { letter-spacing: 0.01em; }
+.buff-atk   { background: rgba(239, 68, 68, 0.16);  border-color: rgba(248, 113, 113, 0.5); color: #fecaca; }
+.buff-spell { background: rgba(139, 92, 246, 0.18); border-color: rgba(167, 139, 250, 0.5); color: #ddd6fe; }
+.buff-def   { background: rgba(59, 130, 246, 0.16); border-color: rgba(96, 165, 250, 0.5);  color: #bfdbfe; }
+.buff-sus   { background: rgba(16, 185, 129, 0.16); border-color: rgba(52, 211, 153, 0.5);  color: #a7f3d0; }
+.buff-off   { background: rgba(100, 116, 139, 0.18); border-color: rgba(148, 163, 184, 0.4); color: #cbd5e1; opacity: 0.6; }
+/* 临时护盾会呼吸,提示「正在吸收伤害」 */
+.buff-shield {
+  background: rgba(56, 189, 248, 0.2); border-color: rgba(56, 189, 248, 0.6); color: #bae6fd;
+  animation: buff-pulse 1.8s ease-in-out infinite;
+}
+@keyframes buff-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.45); }
+  50%      { box-shadow: 0 0 9px 2px rgba(56, 189, 248, 0.35); }
+}
+
+/* --- 已习得被动清单(可展开看完整说明) --- */
+.hud-passives { display: flex; flex-direction: column; gap: 4px; }
+.passive-toggle {
+  width: auto; text-align: left; cursor: pointer; background: none; border: none;
+  padding: 0; color: #94a3b8; font-size: 0.62rem; letter-spacing: 0.05em;
+}
+.passive-toggle:hover { color: #cbd5e1; }
+.passive-list {
+  display: flex; flex-wrap: wrap; gap: 5px;
+  max-height: 52px; overflow: hidden; transition: max-height 0.25s ease;
+}
+.passive-list.open {
+  flex-direction: column; flex-wrap: nowrap;
+  max-height: 260px; overflow-y: auto; padding-right: 2px;
+}
+.passive-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06); color: #e2e8f0;
+  padding: 2px 8px; font-size: 0.68rem; font-weight: 600; line-height: 1.4;
+}
+.passive-list.open .passive-chip {
+  width: 100%; border-radius: 9px; flex-wrap: wrap; padding: 5px 9px;
+}
+.pc-icon { font-size: 0.82rem; line-height: 1; }
+.pc-stacks { font-size: 0.62rem; font-weight: 800; color: #fde047; }
+.pc-desc { width: 100%; margin-top: 2px; font-size: 0.62rem; font-weight: 400; color: #94a3b8; }
+/* 四棵树配色 */
+.passive-chip.tree-attack  { border-color: rgba(248, 113, 113, 0.5); background: rgba(239, 68, 68, 0.14);  color: #fecaca; }
+.passive-chip.tree-spell   { border-color: rgba(167, 139, 250, 0.5); background: rgba(139, 92, 246, 0.16); color: #ddd6fe; }
+.passive-chip.tree-defense { border-color: rgba(96, 165, 250, 0.5);  background: rgba(59, 130, 246, 0.16); color: #bfdbfe; }
+.passive-chip.tree-sustain { border-color: rgba(52, 211, 153, 0.5);  background: rgba(16, 185, 129, 0.16); color: #a7f3d0; }
+/* 稀有度：稀有描边 / 史诗金光 */
+.passive-chip.rar-rare { box-shadow: inset 0 0 0 1px rgba(147, 197, 253, 0.35); }
+.passive-chip.rar-epic { border-color: rgba(251, 191, 36, 0.75); box-shadow: 0 0 8px rgba(251, 191, 36, 0.4); }
+
+/* --- 主动被动：虚空魔弹 --- */
+.void-bolt {
+  position: relative;
+  border-color: rgba(192, 132, 252, 0.75);
+  background: linear-gradient(135deg, rgba(126, 34, 206, 0.42), rgba(37, 99, 235, 0.35));
+  color: #f5d0fe;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.35);
+}
+.void-bolt:hover:not(:disabled) { box-shadow: 0 0 16px rgba(168, 85, 247, 0.6); }
+.void-bolt.on-cd, .void-bolt.no-mana, .hud-item.no-mana { opacity: 0.45; box-shadow: none; }
+.void-cd {
+  margin-left: 4px; display: inline-flex; align-items: center; justify-content: center;
+  min-width: 16px; height: 16px; padding: 0 3px; border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55); font-size: 0.6rem; color: #e9d5ff;
+}
+
+/* --- 敌人灼烧标记(蓝焰灼烧 DoT) --- */
+.enemy-burn {
+  position: absolute; left: 2px; top: 0; z-index: 3;
+  font-size: 0.95rem; pointer-events: none;
+  filter: drop-shadow(0 0 5px rgba(251, 146, 60, 0.9));
+  animation: burn-flicker 0.7s ease-in-out infinite;
+}
+@keyframes burn-flicker {
+  0%, 100% { transform: translateY(0) scale(1);      opacity: 1; }
+  50%      { transform: translateY(-2px) scale(1.14); opacity: 0.78; }
+}
+.enemy-sprite.is-burning {
+  filter: drop-shadow(0 0 10px rgba(249, 115, 22, 0.8)) drop-shadow(0 12px 14px rgba(0, 0, 0, 0.6));
+}
+
+/* --- 升级三选一：被动卡 --- */
+.skill-modal-sub { text-align: center; font-size: 0.7rem; color: #94a3b8; margin: -6px 0 12px; }
+.passive-card {
+  grid-template-areas:
+    "icon name rarity"
+    "icon desc desc"
+    "icon tier stack";
+  align-items: start;
+}
+.passive-card .sc-icon { align-self: center; }
+.passive-card .sc-tier { grid-area: tier; justify-self: start; }
+.pcard-rarity { grid-area: rarity; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.05em; }
+.pcard-rarity.rar-common { color: #cbd5e1; }
+.pcard-rarity.rar-rare   { color: #93c5fd; }
+.pcard-rarity.rar-epic   { color: #fbbf24; }
+.pcard-up, .pcard-new { grid-area: stack; justify-self: end; font-size: 0.62rem; font-weight: 700; }
+.pcard-up  { color: #fde047; }
+.pcard-new { color: #86efac; }
+/* 卡片按树配色 */
+.passive-card.tree-attack  { border-color: rgba(248, 113, 113, 0.45); background: rgba(239, 68, 68, 0.12); }
+.passive-card.tree-attack:hover  { background: rgba(239, 68, 68, 0.24); }
+.passive-card.tree-spell   { border-color: rgba(167, 139, 250, 0.45); background: rgba(139, 92, 246, 0.13); }
+.passive-card.tree-spell:hover   { background: rgba(139, 92, 246, 0.26); }
+.passive-card.tree-defense { border-color: rgba(96, 165, 250, 0.45);  background: rgba(59, 130, 246, 0.13); }
+.passive-card.tree-defense:hover { background: rgba(59, 130, 246, 0.26); }
+.passive-card.tree-sustain { border-color: rgba(52, 211, 153, 0.45);  background: rgba(16, 185, 129, 0.13); }
+.passive-card.tree-sustain:hover { background: rgba(16, 185, 129, 0.26); }
+.passive-card.rar-epic { box-shadow: 0 0 14px rgba(251, 191, 36, 0.35); border-color: rgba(251, 191, 36, 0.6); }
+
+/* ===== Phase C 降级与性能 ===== */
+
+/* 「减少动效」手动开关:禁用常驻动画(粒子/横幅/幕布由 JS 控制不渲染) */
+.fx-reduced .roguelike-bg,
+.fx-reduced .combo-fire,
+.fx-reduced .combo-pop,
+.fx-reduced .portrait-boss,
+.fx-reduced .portrait-enemy,
+.fx-reduced .gift-bounce,
+.fx-reduced .low-hp,
+.fx-reduced .pop-in,
+.fx-reduced .reward-slide,
+.fx-reduced .boss-arena::before,
+  .fx-reduced .stage-sprite,
+  .fx-reduced .stage-boss::before,
+  .fx-reduced .stage-danger::before,
+  .fx-reduced .stage-weapon,
+  .fx-reduced .enemy-attack,
+  .fx-reduced .enemy-hit,
+  .fx-reduced .enemy-float,
+  .fx-reduced .timeout-flash,
+  .fx-reduced .windup-ring.danger,
+  .fx-reduced .buff-shield,
+  .fx-reduced .enemy-burn {
+    animation: none !important;
+  }
+.fx-reduced .coin-rain {
+  display: none !important;
+}
+
+/* 系统「减少动态效果」偏好:全局降级 */
+@media (prefers-reduced-motion: reduce) {
+  .roguelike-bg,
+  .combo-fire,
+  .combo-pop,
+  .portrait-boss,
+  .portrait-enemy,
+  .gift-bounce,
+  .low-hp,
+  .pop-in,
+  .reward-slide,
+  .boss-arena::before,
+  .stage-sprite,
+  .stage-boss::before,
+  .stage-danger::before,
+  .stage-weapon,
+  .enemy-attack,
+  .enemy-hit,
+  .enemy-float,
+  .timeout-flash,
+  .windup-ring.danger,
+  .buff-shield,
+  .enemy-burn,
+  .combat-float {
+    animation: none !important;
+  }
+  .coin-rain {
+    display: none !important;
+  }
+}
+
+/* 移动端横幅适配 */
+@media (max-width: 640px) {
+  .banner {
+    top: 12%;
+    font-size: 0.9rem;
+    padding: 10px 18px;
+  }
+  .banner-victory {
+    font-size: 1.2rem;
+  }
+  .rogue-stage {
+    min-height: 42vh;
+  }
+  .stage-sprite-enemy { width: 62%; }
+  .stage-sprite-boss { width: 76%; }
+  .enemy-sprite-normal { max-width: 96px; }
+  .enemy-sprite-boss { max-width: 240px; }
+  .enemy-row { gap: 10px 6px; }
+  .enemy-card { flex-basis: 80px; }
+  .enemy-card.is-boss { flex-basis: 160px; max-width: 240px; }
+  .windup-ring { width: 32px; height: 32px; }
+  .combat-timer { margin: 0 8px; }
+  .stage-top { font-size: 0.72rem; gap: 6px; padding: 8px 10px; }
+  .stage-deco { width: 64px; height: 64px; }
+  .stage-weapon { width: 34%; }
+  .hud-hint { font-size: 0.62rem; }
+  /* V2.2:窄屏收紧状态条与被动清单 */
+  .buff-chip { font-size: 0.6rem; padding: 2px 5px; }
+  .passive-chip { font-size: 0.62rem; padding: 2px 6px; }
+  .passive-list { max-height: 46px; }
+  .passive-list.open { max-height: 200px; }
+  .enemy-burn { font-size: 0.8rem; }
+}
+
+/* ===== Rich HTML Table (题干表格美化) ===== */
+.rich-table {
+  width: auto;
+  min-width: 200px;
+  border-collapse: collapse;
+  margin: 12px auto;
+  font-size: 0.95rem;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+.rich-table thead th {
+  background: #4f46e5;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 18px;
+  text-align: center;
+  white-space: nowrap;
+}
+.rich-table tbody td {
+  padding: 8px 18px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+.rich-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.rich-table tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
+.rich-table tbody tr:hover {
+  background: #eef2ff;
+}

@@ -1,0 +1,14 @@
+<svg viewBox="0 0 460 330" width="440" height="316" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="230" cy="165" r="130" fill="#eaf3ff" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="100" y1="165" x2="360" y2="165" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="100" y1="165" x2="317.0" y2="68.4" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="317.0" y1="68.4" x2="360" y2="165" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="360" y1="165" x2="169.0" y2="279.8" stroke="#2c3e50" stroke-width="2"/>
+  <line x1="169.0" y1="279.8" x2="100" y2="165" stroke="#2c3e50" stroke-width="2"/>
+  <circle cx="230" cy="165" r="3" fill="#2c3e50"/>
+  <text x="76" y="170" font-size="16" font-weight="500" fill="#1a1a1a">A</text>
+  <text x="324.9869788266516" y="60.39117268793875" font-size="16" font-weight="500" fill="#1a1a1a">B</text>
+  <text x="370" y="170" font-size="16" font-weight="500" fill="#1a1a1a">C</text>
+  <text x="163.96869683783422" y="299.7831870716605" font-size="16" font-weight="500" fill="#1a1a1a">D</text>
+  <text x="224" y="183" font-size="14" fill="#5f5e5a">O</text>
+</svg>

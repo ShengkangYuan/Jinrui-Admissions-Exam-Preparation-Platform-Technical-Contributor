@@ -1,0 +1,66 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: '40px 64px',
+  flexDirection: 'column',
+}}>
+  <Text style={{
+    fontSize: 34,
+    fontWeight: 'bold',
+    color: '#F8FAFC',
+    marginBottom: 36,
+    fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+  }}>
+    技术底座 · 五大核心能力
+  </Text>
+  <Box style={{
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 24,
+    flex: 1,
+    alignContent: 'center',
+  }}>
+    {[
+      { icon: 'eye', title: '视觉识别导入', desc: '多模态模型抽取 PDF 题目、答案与公式，自动结构化入库' },
+      { icon: 'bolt', title: '即时判分引擎', desc: '答案与选项文本全等比对，提交后秒级反馈成绩与解析' },
+      { icon: 'robot', title: 'AI 解析生成', desc: '为每道题自动生成英文逐步解析，解放教师重复劳动' },
+      { icon: 'chart-line', title: '多维学情分析', desc: '按科目 / 难度 / 模式 / 知识点聚合，定位薄弱点' },
+      { icon: 'gamepad', title: 'Roguelike 战斗引擎', desc: '即时回合制战斗，被动技能树与伤害数值系统' },
+    ].map((c, i) => (
+      <Box key={i} style={{
+        width: 360,
+        height: 180,
+        background: '#131C33',
+        borderRadius: 18,
+        padding: 24,
+        flexDirection: 'column',
+        gap: 12,
+        border: '1px solid rgba(37,99,235,0.2)',
+      }}>
+        <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+          <Box style={{
+            width: 48,
+            height: 48,
+            borderRadius: 12,
+            background: 'linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <FAIcon name={c.icon} style={{ fill: '#F8FAFC', width: 24, height: 24 }} />
+          </Box>
+          <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#F8FAFC' }}>{c.title}</Text>
+        </Box>
+        <Text style={{ fontSize: 16, color: '#C7D0E0', lineHeight: 1.6 }}>{c.desc}</Text>
+      </Box>
+    ))}
+  </Box>
+  <Box style={{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 24,
+  }}>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>17 / 18</Text>
+  </Box>
+</Slide>

@@ -1,0 +1,105 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: '40px 64px',
+  flexDirection: 'column',
+}}>
+  <Text style={{
+    fontSize: 34,
+    fontWeight: 'bold',
+    color: '#F8FAFC',
+    marginBottom: 24,
+    fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+  }}>
+    教师端 · 智能导入流水线
+  </Text>
+  <Box style={{
+    flexDirection: 'row',
+    gap: 32,
+    flex: 1,
+    alignItems: 'stretch',
+  }}>
+    <Box style={{
+      width: 420,
+      background: '#131C33',
+      borderRadius: 20,
+      padding: 32,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: 14,
+      border: '1px solid rgba(37,99,235,0.2)',
+    }}>
+      {[
+        { icon: 'file', label: '上传 PDF', desc: '题目 + 可选答案双文件' },
+        { icon: 'eye', label: '视觉模型识别', desc: '题号、题干、选项、LaTeX 公式' },
+        { icon: 'link', label: '答案按题号匹配', desc: '防错位、防越界、映射为选项文本' },
+        { icon: 'tag', label: '自动知识点归类', desc: '命中知识点库，未命中留空待审' },
+        { icon: 'check-circle', label: '审核发布', desc: '缺答案禁止发布，铁律兜底' },
+      ].map((s, i) => (
+        <Box key={i} style={{ flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+          <Box style={{
+            width: 240,
+            height: 64,
+            background: 'linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%)',
+            borderRadius: 12,
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 14,
+            padding: '0 20px',
+          }}>
+            <FAIcon name={s.icon} style={{ fill: '#F8FAFC', width: 24, height: 24 }} />
+            <Box>
+              <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#F8FAFC' }}>{s.label}</Text>
+              <Text style={{ fontSize: 12, color: 'rgba(248,250,252,0.75)' }}>{s.desc}</Text>
+            </Box>
+          </Box>
+          {i < 4 && (
+            <Text style={{ fontSize: 20, color: '#D4AF37', fontWeight: 'bold' }}>↓</Text>
+          )}
+        </Box>
+      ))}
+    </Box>
+    <Box style={{
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      gap: 20,
+    }}>
+      <Text style={{ fontSize: 19, color: '#C7D0E0', lineHeight: 1.6 }}>
+        教师只需上传 PDF，系统即可完成从识别到归类的完整预处理，并在审核页给出明确的缺答案/缺解析提醒。
+      </Text>
+      {[
+        { title: '视觉模型识别', desc: '自动提取题干、选项、公式与题号' },
+        { title: '答案防错位', desc: '按题号匹配，越界字母自动清空' },
+        { title: 'AI 解析生成', desc: '自动为每道题生成英文逐步解析' },
+        { title: '发布铁律', desc: '缺答案题目禁止发布，保证练习质量' },
+      ].map((c, i) => (
+        <Box key={i} style={{
+          background: '#131C33',
+          borderRadius: 14,
+          padding: 18,
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 12,
+          borderLeft: '3px solid #D4AF37',
+        }}>
+          <FAIcon name='check-circle' style={{ fill: '#D4AF37', width: 22, height: 22 }} />
+          <Box>
+            <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#F8FAFC' }}>{c.title}</Text>
+            <Text style={{ fontSize: 14, color: '#7A89A3' }}>{c.desc}</Text>
+          </Box>
+        </Box>
+      ))}
+    </Box>
+  </Box>
+  <Box style={{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 24,
+  }}>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>14 / 18</Text>
+  </Box>
+</Slide>

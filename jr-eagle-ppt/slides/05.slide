@@ -1,0 +1,80 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: '40px 64px',
+  flexDirection: 'column',
+}}>
+  <Text style={{
+    fontSize: 34,
+    fontWeight: 'bold',
+    color: '#F8FAFC',
+    marginBottom: 28,
+    fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+  }}>
+    个人空间 · 一屏聚合全部学习事务
+  </Text>
+  <Box style={{
+    flexDirection: 'row',
+    gap: 32,
+    flex: 1,
+    alignItems: 'stretch',
+  }}>
+    <Box style={{
+      width: 360,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      gap: 20,
+    }}>
+      <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+        <Box style={{
+          width: 48,
+          height: 48,
+          borderRadius: 12,
+          background: 'linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <FAIcon name='home' style={{ fill: '#F8FAFC', width: 24, height: 24 }} />
+        </Box>
+        <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#F8FAFC' }}>统一入口</Text>
+      </Box>
+      <Text style={{ fontSize: 18, color: '#C7D0E0', lineHeight: 1.6 }}>
+        将「我的作业、成绩历史、薄弱知识点、错题本」整合到导航最左侧，学生无需在不同页面间跳转。
+      </Text>
+      {[
+        'Tab 按钮等宽放大，状态一目了然',
+        '我的作业按 DDL 由近到远排序',
+        '24 小时内截止自动进入红色紧急区',
+        '实时倒计时提醒，杜绝遗漏',
+      ].map((t, i) => (
+        <Box key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 10 }}>
+          <FAIcon name='check-circle' style={{ fill: '#D4AF37', width: 18, height: 18, marginTop: 4 }} />
+          <Text style={{ fontSize: 17, color: '#C7D0E0', flex: 1 }}>{t}</Text>
+        </Box>
+      ))}
+    </Box>
+    <Box style={{
+      flex: 1,
+      background: '#131C33',
+      borderRadius: 20,
+      padding: 12,
+      justifyContent: 'center',
+      alignItems: 'center',
+      border: '1px solid rgba(37,99,235,0.2)',
+    }}>
+      <Image
+        src="assets/01_space_assignments.png"
+        style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 12 }}
+      />
+    </Box>
+  </Box>
+  <Box style={{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 24,
+  }}>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>05 / 18</Text>
+  </Box>
+</Slide>

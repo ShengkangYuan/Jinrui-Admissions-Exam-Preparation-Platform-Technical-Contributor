@@ -1,0 +1,14 @@
+<svg height="300" style="max-width:100%;height:auto;" viewbox="0 0 340 300" width="340" xmlns="http://www.w3.org/2000/svg">
+<polygon fill="#f0f5fa" points="50,240 290,240 170,120" stroke="#1f4e79" stroke-width="2.2"></polygon>
+<rect fill="#dce8f5" height="80" stroke="#c0392b" stroke-width="2" width="80" x="130.0" y="160"></rect>
+<line stroke="#1f4e79" stroke-dasharray="5,4" stroke-width="1.3" x1="170" x2="170" y1="120" y2="240"></line>
+<text fill="#1f4e79" font-size="15" x="165" y="112">A</text>
+<text fill="#1f4e79" font-size="15" x="35" y="258">B</text>
+<text fill="#1f4e79" font-size="15" x="295" y="258">C</text>
+<text fill="#1f4e79" font-size="13" x="155" y="260">12 cm</text>
+<text fill="#1f4e79" font-size="13" x="178" y="180">6</text>
+<text fill="#c0392b" font-size="13" x="165.0" y="205">4</text>
+<text fill="#c0392b" font-size="12" x="112.0" y="205">4</text>
+<text fill="#7f8c9a" font-size="13" x="260" y="160">square on</text>
+<text fill="#7f8c9a" font-size="13" x="260" y="180">the base</text>
+</svg>

@@ -1,0 +1,22 @@
+<svg height="300" style="max-width:100%;height:auto;" viewbox="0 0 340 300" width="340" xmlns="http://www.w3.org/2000/svg">
+<text fill="#7f8c9a" font-size="13" x="20" y="25">plan view (looking down)</text>
+<line stroke="#1f4e79" stroke-width="2" x1="100" x2="100" y1="60" y2="229.9038105676658"></line>
+<line stroke="#1f4e79" stroke-width="2" x1="80" x2="205.0" y1="80" y2="80"></line>
+<polygon fill="#dce8f5" points="100,80 100,210 175,80" stroke="#1f4e79" stroke-width="2.2"></polygon>
+<line stroke="#c0392b" stroke-dasharray="6,4" stroke-width="1.8" x1="100" x2="175" y1="210" y2="80"></line>
+<rect fill="none" height="8" stroke="#1f4e79" stroke-width="1.5" width="8" x="100" y="80"></rect>
+<circle cx="100" cy="80" fill="#1f4e79" r="4"></circle>
+<circle cx="100" cy="210" fill="#1f4e79" r="4"></circle>
+<circle cx="175" cy="80" fill="#1f4e79" r="4"></circle>
+<text fill="#1f4e79" font-size="15" x="85" y="72">T</text>
+<text fill="#1f4e79" font-size="15" x="85" y="228">A</text>
+<text fill="#1f4e79" font-size="15" x="183" y="85">B</text>
+<text fill="#1f4e79" font-size="13" x="75" y="144">h√3</text>
+<text fill="#1f4e79" font-size="13" x="137" y="72">h</text>
+<text fill="#c0392b" font-size="13" x="147" y="144">100 m</text>
+<path d="M112,198 A12,12 0 0,0 118,190" fill="none" stroke="#c0392b" stroke-width="1.4"></path>
+<text fill="#c0392b" font-size="12" x="120" y="200">30°</text>
+<path d="M163,92 A12,12 0 0,1 155,98" fill="none" stroke="#c0392b" stroke-width="1.4"></path>
+<text fill="#c0392b" font-size="12" x="140" y="105">60°</text>
+<text fill="#7f8c9a" font-size="12" x="160" y="280">A due south, B due east of T</text>
+</svg>

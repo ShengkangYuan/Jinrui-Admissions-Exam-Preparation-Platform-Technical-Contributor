@@ -1,0 +1,66 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: '40px 64px',
+  flexDirection: 'column',
+}}>
+  <Text style={{
+    fontSize: 34,
+    fontWeight: 'bold',
+    color: '#F8FAFC',
+    marginBottom: 16,
+    fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+  }}>
+    语言学习 · 雅思 / 托福 / 剑桥 KET/PET 全技能覆盖
+  </Text>
+  <Box style={{
+    height: 370,
+    background: '#131C33',
+    borderRadius: 20,
+    padding: 10,
+    border: '1px solid rgba(37,99,235,0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
+  }}>
+    <Image
+      src="assets/06_language_library.png"
+      style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 12 }}
+    />
+  </Box>
+  <Box style={{
+    flexDirection: 'row',
+    gap: 16,
+    height: 110,
+  }}>
+    {[
+      { title: '听力', desc: '音频播放 + 逐题作答' },
+      { title: '阅读', desc: '高亮定位 + 限时模考' },
+      { title: '写作', desc: '字数统计 + 范文解析' },
+      { title: '口语', desc: '录音作答 + 评分反馈' },
+    ].map((c, i) => (
+      <Box key={i} style={{
+        flex: 1,
+        background: '#131C33',
+        borderRadius: 12,
+        padding: 14,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        gap: 6,
+        borderTop: '3px solid #D4AF37',
+      }}>
+        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#F8FAFC' }}>{c.title}</Text>
+        <Text style={{ fontSize: 14, color: '#7A89A3' }}>{c.desc}</Text>
+      </Box>
+    ))}
+  </Box>
+  <Box style={{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 18,
+  }}>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>10 / 18</Text>
+  </Box>
+</Slide>

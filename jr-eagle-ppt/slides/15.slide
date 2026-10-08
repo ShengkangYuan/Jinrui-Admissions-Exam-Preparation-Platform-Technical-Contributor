@@ -1,0 +1,123 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: '40px 64px',
+  flexDirection: 'column',
+}}>
+  <Text style={{
+    fontSize: 34,
+    fontWeight: 'bold',
+    color: '#F8FAFC',
+    marginBottom: 24,
+    fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+  }}>
+    教师端 · 试卷管理与灵活组卷
+  </Text>
+  <Box style={{
+    flexDirection: 'row',
+    gap: 32,
+    flex: 1,
+    alignItems: 'stretch',
+  }}>
+    <Box style={{
+      width: 440,
+      background: '#131C33',
+      borderRadius: 20,
+      padding: 32,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      gap: 18,
+      border: '1px solid rgba(37,99,235,0.2)',
+    }}>
+      <Box style={{
+        height: 80,
+        background: 'linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%)',
+        borderRadius: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#F8FAFC' }}>题库</Text>
+      </Box>
+      <Box style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 24, color: '#D4AF37', fontWeight: 'bold' }}>↓</Text>
+      </Box>
+      <Box style={{ flexDirection: 'row', gap: 16 }}>
+        <Box style={{
+          flex: 1,
+          height: 90,
+          background: 'rgba(37,99,235,0.18)',
+          borderRadius: 12,
+          justifyContent: 'center',
+          alignItems: 'center',
+          border: '1px solid rgba(37,99,235,0.4)',
+        }}>
+          <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#F8FAFC' }}>原版真题</Text>
+        </Box>
+        <Box style={{
+          flex: 1,
+          height: 90,
+          background: 'rgba(37,99,235,0.18)',
+          borderRadius: 12,
+          justifyContent: 'center',
+          alignItems: 'center',
+          border: '1px solid rgba(37,99,235,0.4)',
+        }}>
+          <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#F8FAFC' }}>教师自组卷</Text>
+        </Box>
+      </Box>
+      <Box style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 24, color: '#D4AF37', fontWeight: 'bold' }}>↓</Text>
+      </Box>
+      <Box style={{
+        height: 80,
+        background: 'linear-gradient(135deg, #D4AF37 0%, #F3D27A 100%)',
+        borderRadius: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#0A0F1E' }}>审题 → 发布</Text>
+      </Box>
+    </Box>
+    <Box style={{
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      gap: 18,
+    }}>
+      <Text style={{ fontSize: 19, color: '#C7D0E0', lineHeight: 1.6 }}>
+        支持原版真题库与教师自定义组卷双轨管理；可按学科、套题类型、知识点筛选，从题库直接选题入卷。
+      </Text>
+      {[
+        { title: '原版 / 组卷双轨', desc: '区分 OFFICIAL 与 CUSTOM，清晰管理' },
+        { title: '多维筛选', desc: '学科 / 套题类型 / 名称排序 / 最新优先' },
+        { title: '从题库选题', desc: '按知识点筛选，完整题干预览后入卷' },
+        { title: '审题铁律', desc: '缺答案 / 缺解析题目禁止发布' },
+      ].map((c, i) => (
+        <Box key={i} style={{
+          background: '#131C33',
+          borderRadius: 14,
+          padding: 18,
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 12,
+          borderLeft: '3px solid #2563EB',
+        }}>
+          <FAIcon name='check-circle' style={{ fill: '#2563EB', width: 22, height: 22 }} />
+          <Box>
+            <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#F8FAFC' }}>{c.title}</Text>
+            <Text style={{ fontSize: 14, color: '#7A89A3' }}>{c.desc}</Text>
+          </Box>
+        </Box>
+      ))}
+    </Box>
+  </Box>
+  <Box style={{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 24,
+  }}>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>15 / 18</Text>
+  </Box>
+</Slide>

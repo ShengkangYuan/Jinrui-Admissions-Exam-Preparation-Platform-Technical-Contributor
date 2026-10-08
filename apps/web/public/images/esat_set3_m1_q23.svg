@@ -1,0 +1,17 @@
+<svg height="300" style="max-width:100%;height:auto;" viewbox="0 0 340 300" width="340" xmlns="http://www.w3.org/2000/svg">
+<circle cx="170" cy="150" fill="#f0f5fa" r="84" stroke="#1f4e79" stroke-width="2"></circle>
+<polygon fill="#dce8f5" points="170.0,66.0 97.3,192.0 242.7,192.0" stroke="#1f4e79" stroke-width="2.2"></polygon>
+<circle cx="170" cy="150" fill="#1f4e79" r="4"></circle>
+<text fill="#1f4e79" font-size="14" x="178" y="145">O</text>
+<text fill="#1f4e79" font-size="15" x="165" y="58">A</text>
+<text fill="#1f4e79" font-size="15" x="79.25386608210715" y="197.0">B</text>
+<text fill="#1f4e79" font-size="15" x="250.74613391789285" y="197.0">C</text>
+<line stroke="#c0392b" stroke-dasharray="5,4" stroke-width="1.5" x1="170.0" x2="170.0" y1="66.0" y2="192.0"></line>
+<line stroke="#c0392b" stroke-dasharray="6,4" stroke-width="1.8" x1="170" x2="97.3" y1="150" y2="192.0"></line>
+<text fill="#c0392b" font-size="13" x="175" y="108">6</text>
+<text fill="#c0392b" font-size="13" x="118.0" y="176.0">6</text>
+<text fill="#c0392b" font-size="13" x="175" y="186.0">3</text>
+<path d="M111.3,184.0 A14,14 0 0,1 117.3,174.0" fill="none" stroke="#c0392b" stroke-width="1.4"></path>
+<text fill="#c0392b" font-size="12" x="119.25386608210715" y="182.0">θ</text>
+<text fill="#7f8c9a" font-size="13" x="220" y="270">R = 6 cm</text>
+</svg>

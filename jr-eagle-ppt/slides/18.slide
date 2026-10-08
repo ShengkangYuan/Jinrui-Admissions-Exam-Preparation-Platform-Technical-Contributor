@@ -1,0 +1,81 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: 0,
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'relative',
+  overflow: 'hidden',
+}}>
+  <Box style={{
+    position: 'absolute',
+    top: -200,
+    left: '50%',
+    marginLeft: -300,
+    width: 600,
+    height: 600,
+    background: 'radial-gradient(circle at 50% 50%, rgba(212,175,55,0.16), transparent 60%)',
+    borderRadius: '50%',
+  }} />
+  <Box style={{
+    position: 'absolute',
+    bottom: -160,
+    right: -160,
+    width: 500,
+    height: 500,
+    background: 'radial-gradient(circle at 50% 50%, rgba(37,99,235,0.14), transparent 60%)',
+    borderRadius: '50%',
+  }} />
+  <Box style={{
+    position: 'relative',
+    zIndex: 2,
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 28,
+  }}>
+    <Text style={{
+      fontSize: 56,
+      fontWeight: 'bold',
+      backgroundImage: 'linear-gradient(135deg, #D4AF37 0%, #F3D27A 100%)',
+      backgroundClip: 'text',
+      color: 'transparent',
+      textAlign: 'center',
+      fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+    }}>
+      金瑞金鹰 · 让成长有迹可循
+    </Text>
+    <Box style={{
+      width: 120,
+      height: 4,
+      background: 'linear-gradient(90deg, #D4AF37, #F3D27A)',
+      borderRadius: 2,
+    }} />
+    <Text style={{
+      fontSize: 22,
+      color: '#C7D0E0',
+      textAlign: 'center',
+      lineHeight: 1.6,
+    }}>
+      学生端激发自主训练 · 教师端提升管理效率 · 数据驱动每一次进步
+    </Text>
+  </Box>
+  <Box style={{
+    position: 'absolute',
+    bottom: 32,
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 6,
+  }}>
+    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#F8FAFC' }}>金瑞升学 · 金鹰系统</Text>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>谢谢观看</Text>
+  </Box>
+  <Text style={{
+    position: 'absolute',
+    bottom: 28,
+    right: 64,
+    fontSize: 14,
+    color: '#7A89A3',
+  }}>18 / 18</Text>
+</Slide>

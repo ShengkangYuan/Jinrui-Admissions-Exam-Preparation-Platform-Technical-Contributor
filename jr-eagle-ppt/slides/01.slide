@@ -1,0 +1,90 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: 0,
+  position: 'relative',
+  overflow: 'hidden',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+}}>
+  <Box style={{
+    position: 'absolute',
+    top: -200,
+    right: -200,
+    width: 800,
+    height: 800,
+    background: 'radial-gradient(circle at 50% 50%, rgba(37,99,235,0.22), transparent 60%)',
+    borderRadius: '50%',
+  }} />
+  <Box style={{
+    position: 'absolute',
+    bottom: -160,
+    left: -160,
+    width: 600,
+    height: 600,
+    background: 'radial-gradient(circle at 50% 50%, rgba(212,175,55,0.12), transparent 60%)',
+    borderRadius: '50%',
+  }} />
+  <Box style={{
+    position: 'relative',
+    zIndex: 2,
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 24,
+  }}>
+    <Text style={{
+      fontSize: 72,
+      fontWeight: 'bold',
+      color: '#F8FAFC',
+      letterSpacing: 3,
+      textAlign: 'center',
+      fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+    }}>
+      金瑞金鹰系统
+    </Text>
+    <Box style={{
+      width: 120,
+      height: 4,
+      background: 'linear-gradient(90deg, #D4AF37, #F3D27A)',
+      borderRadius: 2,
+    }} />
+    <Text style={{
+      fontSize: 32,
+      fontWeight: 500,
+      color: '#C7D0E0',
+      textAlign: 'center',
+      letterSpacing: 1,
+      fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+    }}>
+      智能备考与学情分析一体化平台
+    </Text>
+    <Box style={{ height: 24 }} />
+    <Text style={{
+      fontSize: 20,
+      color: '#7A89A3',
+      textAlign: 'center',
+      lineHeight: 1.6,
+    }}>
+      学生端 + 教师端双引擎 · 让每一次练习都被看见
+    </Text>
+  </Box>
+  <Box style={{
+    position: 'absolute',
+    bottom: 28,
+    left: 64,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  }}>
+    <Box style={{
+      width: 8,
+      height: 8,
+      background: '#D4AF37',
+      borderRadius: '50%',
+    }} />
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+  </Box>
+</Slide>

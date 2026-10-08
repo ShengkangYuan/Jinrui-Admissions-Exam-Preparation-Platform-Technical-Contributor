@@ -1,0 +1,73 @@
+<Slide style={{
+  width: '1280px',
+  height: '720px',
+  background: '#0A0F1E',
+  padding: '40px 64px',
+  flexDirection: 'column',
+}}>
+  <Text style={{
+    fontSize: 34,
+    fontWeight: 'bold',
+    color: '#F8FAFC',
+    marginBottom: 24,
+    fontFamily: '"PingFang SC","Microsoft YaHei",sans-serif',
+  }}>
+    刷题练习 · 试卷库与精准筛选
+  </Text>
+  <Box style={{
+    flexDirection: 'row',
+    gap: 28,
+    flex: 1,
+    alignItems: 'stretch',
+  }}>
+    <Box style={{
+      width: 360,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      gap: 22,
+    }}>
+      <Text style={{ fontSize: 19, color: '#C7D0E0', lineHeight: 1.6 }}>
+        覆盖数学、物理、化学、生物等学科，支持原版真题与教师自组卷，学生可按科目、套题类型、知识点、难度、题量一键筛选。
+      </Text>
+      {[
+        { title: '多维度筛选', desc: '学科 / 原版·组卷 / 知识点 / 难度 / 题量' },
+        { title: '整卡可点', desc: '卡片即按钮，右侧箭头一键开卷' },
+        { title: '练习 & 模考', desc: '普通练习不限时，模考严格倒计时' },
+      ].map((c, i) => (
+        <Box key={i} style={{
+          background: '#131C33',
+          borderRadius: 14,
+          padding: 18,
+          flexDirection: 'column',
+          gap: 6,
+          borderLeft: '3px solid #2563EB',
+        }}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#F8FAFC' }}>{c.title}</Text>
+          <Text style={{ fontSize: 15, color: '#7A89A3' }}>{c.desc}</Text>
+        </Box>
+      ))}
+    </Box>
+    <Box style={{
+      flex: 1,
+      background: '#131C33',
+      borderRadius: 20,
+      padding: 10,
+      border: '1px solid rgba(37,99,235,0.2)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
+      <Image
+        src="assets/05_practice_library.png"
+        style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 12 }}
+      />
+    </Box>
+  </Box>
+  <Box style={{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 24,
+  }}>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>金瑞升学 · 金鹰系统</Text>
+    <Text style={{ fontSize: 14, color: '#7A89A3' }}>09 / 18</Text>
+  </Box>
+</Slide>

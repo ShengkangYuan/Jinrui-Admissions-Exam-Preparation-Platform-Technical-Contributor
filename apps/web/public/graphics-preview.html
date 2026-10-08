@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图形题补录效果预览 · 金瑞升学金鹰系统</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f8fafc; color: #0f172a; padding: 24px 16px 60px; }
+  .wrap { max-width: 780px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 700; text-align: center; }
+  .sub { text-align: center; color: #64748b; font-size: 13px; margin-top: 6px; }
+  .note { text-align: center; color: #94a3b8; font-size: 12px; margin-top: 4px; }
+  .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 22px; margin-top: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+  .qhead { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: #94a3b8; }
+  .topic { color: #6366f1; font-weight: 500; }
+  .stem { margin-top: 10px; font-size: 15px; line-height: 1.7; }
+  .stem img { display: block; max-width: 420px; max-height: 260px; margin-top: 10px; border: 1px solid #e2e8f0; border-radius: 10px; background: #fff; }
+  .opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-top: 16px; }
+  .opt { border: 2px solid #e2e8f0; border-radius: 12px; padding: 10px; cursor: pointer; text-align: center; transition: all .15s; background: #fff; font-size: 13px; color: #334155; }
+  .opt img { max-width: 100%; max-height: 150px; display: block; margin: 0 auto; }
+  .opt:hover { border-color: #a5b4fc; }
+  .opt.sel { border-color: #6366f1; background: #eef2ff; color: #312e81; }
+  .opt.ok { border-color: #10b981; background: #ecfdf5; }
+  .opt.bad { border-color: #ef4444; background: #fef2f2; }
+  .opt .mark { display: block; font-size: 12px; margin-top: 4px; font-weight: 500; }
+  .result { margin-top: 14px; padding: 12px 14px; border-radius: 10px; font-size: 13px; line-height: 1.7; display: none; }
+  .result.show { display: block; }
+  .result.win { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+  .result.lose { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+  .result b { font-weight: 600; }
+  .legend { margin-top: 26px; padding: 14px; background: #f1f5f9; border-radius: 12px; font-size: 12px; color: #475569; line-height: 1.8; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>图形题补录 · 答题效果预览</h1>
+  <p class="sub">金瑞升学金鹰系统 · TMUA Specimen 2017 Paper 2 图形题</p>
+  <p class="note">点击选项可模拟作答(与系统答题页交互一致),提交后显示对错与解析</p>
+
+  <div id="q1" class="card"></div>
+  <div id="q2" class="card"></div>
+  <div id="q3" class="card"></div>
+
+  <div class="legend">
+    <b>说明</b>:三道图形题均已录入系统题库(来源标注「TMUA Specimen 2017 Paper 2(图形题)」),
+    图片由 matplotlib 按官方题目数学内容精确生成(共 11 张),存放在 <code>apps/web/public/images/questions/</code>。
+    学生在系统里刷题时会看到与本预览一致的渲染效果(Q4 卡片反例题的卡片为教学复现版,建议与官方 PDF 核对)。
+  </div>
+</div>
+
+<script>
+const DATA = [
+  {
+    topic: "逻辑 · 难度 2",
+    stem: "A set of five cards each have a letter printed on their front and a number printed on their back, as follows:",
+    stemImg: "/images/questions/q4-cards.png",
+    options: ["卡 A", "卡 B", "卡 C", "卡 D", "卡 E"],
+    answer: "卡 A",
+    solution: "反例需正面是元音且背面是奇数:卡 A 正面 E(元音)、背面 7(奇数),故可推翻「元音卡背面都是偶数」这一命题。"
+  },
+  {
+    topic: "函数图像 · 难度 3",
+    stem: "Which one of the following is a sketch of the graph (x + y)(x² − xy + y²) = 1?",
+    options: ["/images/questions/q7-a.png", "/images/questions/q7-b.png", "/images/questions/q7-c.png", "/images/questions/q7-d.png"],
+    optionsLabel: ["A", "B", "C", "D"],
+    answer: "/images/questions/q7-c.png",
+    solution: "(x+y)(x²−xy+y²) = x³ + y³ = 1,曲线过 (1,0) 与 (0,1),随 x 增大 y 单调递减。答案 C。"
+  },
+  {
+    topic: "对数函数图像 · 难度 3",
+    stem: "Which one of the following is a sketch of the graph of y = log₂ x for x > 1?",
+    options: ["/images/questions/q10-a.png", "/images/questions/q10-b.png", "/images/questions/q10-c.png", "/images/questions/q10-d.png", "/images/questions/q10-e.png", "/images/questions/q10-f.png"],
+    optionsLabel: ["A", "B", "C", "D", "E", "F"],
+    answer: "/images/questions/q10-e.png",
+    solution: "y = log₂x 在 x > 1 上递增、过 (1,0)、增速放缓(下凸)。答案 E。"
+  }
+];
+
+function render(idx) {
+  const d = DATA[idx];
+  const el = document.getElementById("q" + (idx + 1));
+  const stemHtml = d.stemImg ? d.stem + `<img src="${d.stemImg}" alt="卡片图">` : d.stem;
+  const opts = d.options.map((o, i) => {
+    const label = d.optionsLabel ? d.optionsLabel[i] : o;
+    const content = o.startsWith("/") ? `<img src="${o}" alt="选项${label}">` : o;
+    return `<button class="opt" data-idx="${i}" data-val="${o}"><span class="mark">${label}</span>${content}</button>`;
+  }).join("");
+  el.innerHTML = `
+    <div class="qhead"><span class="topic">${d.topic}</span><span>第 ${idx + 1} 题 · 图形题</span></div>
+    <div class="stem">${stemHtml}</div>
+    <div class="opts">${opts}</div>
+    <div class="result"></div>`;
+
+  el.querySelectorAll(".opt").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      el.querySelectorAll(".opt").forEach((b) => { b.classList.remove("sel"); });
+      btn.classList.add("sel");
+      const val = btn.dataset.val;
+      const ok = val === d.answer;
+      btn.classList.add(ok ? "ok" : "bad");
+      const r = el.querySelector(".result");
+      r.className = "result show " + (ok ? "win" : "lose");
+      r.innerHTML = ok
+        ? `<b>✓ 答对!</b> 本题正确答案 ${okLabel(d, val)}。解析:${d.solution}`
+        : `<b>✗ 答错。</b> 正确答案是 ${okLabel(d, d.answer)}。解析:${d.solution}`;
+    });
+  });
+}
+
+function okLabel(d, val) {
+  if (d.optionsLabel) {
+    const i = d.options.indexOf(val);
+    return d.optionsLabel[i];
+  }
+  return val;
+}
+
+DATA.forEach((_, i) => render(i));
+</script>
+</body>
+</html>
